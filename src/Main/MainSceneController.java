@@ -3,21 +3,16 @@ package Main;
 import Planner.Authority;
 import Planner.Council;
 import Planner.Teacher;
-import com.sun.javafx.beans.event.AbstractNotifyListener;
-import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-
-import java.util.Stack;
 
 public class MainSceneController {
 
