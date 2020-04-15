@@ -29,7 +29,7 @@
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="500.0" prefWidth="550.0">
-                            <VBox id="Councils" prefHeight="500.0" prefWidth="525.0"/>
+                            <VBox fx:id="councilsContainer" prefHeight="500.0" prefWidth="525.0"/>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="550.0" prefWidth="250.0" spacing="5.0" styleClass="vBox">
@@ -40,7 +40,7 @@
                                 </font>
                             </Label>
                             <ScrollPane hbarPolicy="NEVER" prefHeight="225.0" prefWidth="250.0">
-                                <VBox id="Authority" prefHeight="225.0" prefWidth="225.0"/>
+                                <VBox fx:id="authorityContainer" prefHeight="225.0" prefWidth="225.0"/>
                             </ScrollPane>
                             <padding>
                                 <Insets bottom="1.0"/>
@@ -53,7 +53,7 @@
                                 </font>
                             </Label>
                             <ScrollPane hbarPolicy="NEVER" prefHeight="225.0" prefWidth="250.0">
-                                <VBox id="Teachers" prefHeight="225.0" prefWidth="225.0"/>
+                                <VBox fx:id="teachersContainer" prefHeight="225.0" prefWidth="225.0"/>
                             </ScrollPane>
                             <padding>
                                 <Insets bottom="2.0"/>
@@ -66,7 +66,7 @@
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
-                    <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="790.0" text="Calculate">
+                    <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="790.0" text="Calculate" onMouseClicked="#calculate">
                         <font>
                             <Font size="19.0"/>
                         </font>
