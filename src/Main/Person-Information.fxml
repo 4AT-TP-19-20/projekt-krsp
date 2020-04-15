@@ -45,7 +45,7 @@
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                            <VBox fx:id="Monday" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                            <VBox fx:id="mondayContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
                                   minWidth="-Infinity" prefHeight="450.0" prefWidth="137.0"/>
                         </ScrollPane>
                     </VBox>
@@ -57,7 +57,7 @@
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                            <VBox fx:id="Tuesday" prefHeight="450.0" prefWidth="137.0"/>
+                            <VBox fx:id="tuesdayContainer" prefHeight="450.0" prefWidth="137.0"/>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
@@ -68,7 +68,7 @@
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                            <VBox fx:id="Wednesday" prefHeight="450.0" prefWidth="137.0"/>
+                            <VBox fx:id="wednesdayContainer" prefHeight="450.0" prefWidth="137.0"/>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
@@ -79,7 +79,7 @@
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                            <VBox fx:id="Thursday" prefHeight="450.0" prefWidth="137.0"/>
+                            <VBox fx:id="thursdayContainer" prefHeight="450.0" prefWidth="137.0"/>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
@@ -90,7 +90,7 @@
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                            <VBox fx:id="Friday" prefHeight="450.0" prefWidth="137.0"/>
+                            <VBox fx:id="fridayContainer" prefHeight="450.0" prefWidth="137.0"/>
                         </ScrollPane>
                     </VBox>
                 </HBox>
@@ -98,7 +98,7 @@
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
                     </padding>
-                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="790.0" text="Back">
+                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="790.0" text="Back" onMouseClicked="#backButtonPressed">
                         <font>
                             <Font size="19.0"/>
                         </font>
