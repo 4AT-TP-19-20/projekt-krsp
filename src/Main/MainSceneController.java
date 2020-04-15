@@ -1,7 +1,16 @@
 package Main;
 
+import Planner.Authority;
+import Planner.Council;
+import Planner.Teacher;
+import com.sun.javafx.beans.event.AbstractNotifyListener;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -19,6 +28,11 @@ public class MainSceneController {
     @FXML
     private VBox teachersContainer;
 
+    private ObservableList<Council> councilList = FXCollections.observableArrayList();
+    private ObservableList<Teacher> teachersList = FXCollections.observableArrayList();
+    private ObservableList<Authority> authorityList = FXCollections.observableArrayList();
+
+
     @FXML
     private void initialize() {
         // Adding buttons for allowing the user to add councils, teachers and authorities
@@ -31,19 +45,32 @@ public class MainSceneController {
         this.councilsContainer.getChildren().add(addCouncilButton);
         this.teachersContainer.getChildren().add(addTeacherButton);
         this.authorityContainer.getChildren().add(addAuthorityButton);
+        this.councilList.addListener((ListChangeListener<Council>) c -> {
+            this.councilsContainer.getChildren().setAll(this.councilList);
+            this.councilsContainer.getChildren().add(addCouncilButton);
+        });
+        this.teachersList.addListener((ListChangeListener<Teacher>) c -> {
+            this.teachersContainer.getChildren().setAll(this.teachersList);
+            this.teachersContainer.getChildren().add(addTeacherButton);
+        });
+        this.authorityList.addListener((ListChangeListener<Authority>) c -> {
+            this.authorityContainer.getChildren().setAll(this.authorityList);
+            this.authorityContainer.getChildren().add(addAuthorityButton);
+        });
     }
 
     private void addCouncil() {
         System.out.println("Adding Council");
     }
 
+    private void addTeacher() {
+        System.out.println("Adding Teacher");
+    }
+
     private void addAuthority() {
         System.out.println("Adding Authority");
     }
 
-    private void addTeacher() {
-        System.out.println("Adding Teacher");
-    }
 
     // Helper function for creating a circular button
     public static StackPane createCircularButton() {

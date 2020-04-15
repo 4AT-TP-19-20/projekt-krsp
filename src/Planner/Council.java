@@ -1,4 +1,6 @@
 package Planner;
 
-public class Council {
+import javafx.scene.layout.HBox;
+
+public class Council extends HBox {
 }
