@@ -6,22 +6,33 @@
     spacingSize: 5px;
 }
 .topHBoxOutside {
-    padding: paddingTop paddingLeft 0px paddingRight;
-    spacing: spacingSize;
+    -fx-padding-top: paddingTop;
+    -fx-padding-left: paddingLeft;
+    -fx-padding-right: paddingRight;
+    -fx-spacing: spacingSize;
 }
 .topHBoxInside {
-    -fx-padding: paddingTop paddingLeft paddingBottom paddingRight;
+    -fx-padding-top: paddingTop;
+    -fx-padding-left: paddingLeft;
+    -fx-padding-bottom: paddingBottom;
+    -fx-padding-right: paddingRight;
     -fx-spacing: spacingSize;
 }
 .centerHBox {
-    -fx-padding: 0px paddingLeft 0px paddingRight;
+    -fx-padding-left: paddingLeft;
+    -fx-padding-right: paddingRight;
     -fx-spacing: spacingSize;
 }
 .bottomHBoxOutside {
-    padding: paddingTop paddingLeft paddingBottom paddingRight;
+    -fx-padding-top: paddingTop;
+    -fx-padding-left: paddingLeft;
+    -fx-padding-bottom: paddingBottom;
+    -fx-padding-right: paddingRight;
 }
 .bottomHBoxInside {
-    -fx-padding: 0px paddingLeft paddingBottom paddingRight;
+    -fx-padding-left: paddingLeft;
+    -fx-padding-bottom: paddingBottom;
+    -fx-padding-right: paddingRight;
     -fx-spacing: spacingSize;
 }
 .vBox {
