@@ -1,109 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
-   <center>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
-         <stylesheets>
-            <URL value="@properties.css" />
-         </stylesheets>
-         <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
-            <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0" spacing="5.0" styleClass="topHBoxInside">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <Label prefHeight="35.0" prefWidth="120.0" text="Name:">
-                  <font>
-                     <Font size="24.0" />
-                  </font>
-                  <HBox.margin>
-                     <Insets />
-                  </HBox.margin>
-               </Label>
-            </HBox>
-            <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="5.0" styleClass="centerHBox">
-               <padding>
-                  <Insets bottom="5.0" />
-               </padding>
-               <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                  <children>
-                     <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Monday" textAlignment="CENTER">
+<?import java.net.URL?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
+              prefWidth="800.0" BorderPane.alignment="CENTER">
+            <stylesheets>
+                <URL value="@properties.css"/>
+            </stylesheets>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                  minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0" spacing="5.0"
+                      styleClass="topHBoxInside">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                    <opaqueInsets>
+                        <Insets/>
+                    </opaqueInsets>
+                    <Label prefHeight="35.0" prefWidth="120.0" text="Name:">
                         <font>
-                           <Font size="24.0" />
+                            <Font size="24.0"/>
                         </font>
-                     </Label>
-                     <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                        <VBox fx:id="Monday" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="137.0" />
-                     </ScrollPane>
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                  <children>
-                     <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Tuesday" textAlignment="CENTER">
+                        <HBox.margin>
+                            <Insets/>
+                        </HBox.margin>
+                    </Label>
+                </HBox>
+                <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="5.0"
+                      styleClass="centerHBox">
+                    <padding>
+                        <Insets bottom="5.0"/>
+                    </padding>
+                    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Monday"
+                               textAlignment="CENTER">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
+                            <VBox fx:id="Monday" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+                                  minWidth="-Infinity" prefHeight="450.0" prefWidth="137.0"/>
+                        </ScrollPane>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Tuesday"
+                               textAlignment="CENTER">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
+                            <VBox fx:id="Tuesday" prefHeight="450.0" prefWidth="137.0"/>
+                        </ScrollPane>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Wednesday"
+                               textAlignment="CENTER">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
+                            <VBox fx:id="Wednesday" prefHeight="450.0" prefWidth="137.0"/>
+                        </ScrollPane>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Thursday"
+                               textAlignment="CENTER">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
+                            <VBox fx:id="Thursday" prefHeight="450.0" prefWidth="137.0"/>
+                        </ScrollPane>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Friday"
+                               textAlignment="CENTER">
+                            <font>
+                                <Font size="24.0"/>
+                            </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
+                            <VBox fx:id="Friday" prefHeight="450.0" prefWidth="137.0"/>
+                        </ScrollPane>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0" styleClass="bottomHBoxOutside">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                    </padding>
+                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="790.0" text="Back">
                         <font>
-                           <Font size="24.0" />
-                        </font></Label>
-                     <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                        <VBox fx:id="Tuesday" prefHeight="450.0" prefWidth="137.0" />
-                     </ScrollPane>
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                  <children>
-                     <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Wednesday" textAlignment="CENTER">
-                        <font>
-                           <Font size="24.0" />
+                            <Font size="19.0"/>
                         </font>
-                     </Label>
-                     <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                        <VBox fx:id="Wednesday" prefHeight="450.0" prefWidth="137.0" />
-                     </ScrollPane>
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                  <children>
-                     <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Thursday" textAlignment="CENTER">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                        <VBox fx:id="Thursday" prefHeight="450.0" prefWidth="137.0" />
-                     </ScrollPane>
-                  </children>
-               </VBox>
-               <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                  <children>
-                     <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Friday" textAlignment="CENTER">
-                        <font>
-                           <Font size="24.0" />
-                        </font>
-                     </Label>
-                     <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                        <VBox fx:id="Friday" prefHeight="450.0" prefWidth="137.0" />
-                     </ScrollPane>
-                  </children>
-               </VBox>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0" styleClass="bottomHBoxOutside">
-               <padding>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </padding>
-               <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="790.0" text="Back">
-                  <font>
-                     <Font size="19.0" />
-                  </font>
-               </Button>
-            </HBox>
-         </VBox>
-      </Pane>
-   </center>
+                    </Button>
+                </HBox>
+            </VBox>
+        </Pane>
+    </center>
 </BorderPane>
