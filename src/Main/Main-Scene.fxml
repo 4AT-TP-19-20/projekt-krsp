@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+    <center>
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+            <stylesheets>
+                <URL value="@properties.css" />
+            </stylesheets>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+
+
+                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" spacing="5.0" styleClass="topHBoxOutside">
+                    <padding>
+                        <Insets left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <VBox alignment="CENTER" prefHeight="550.0" prefWidth="550.0" spacing="5.0">
+                        <Label alignment="CENTER" prefHeight="35.0" prefWidth="543.0" text="Councils">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                        <ScrollPane hbarPolicy="NEVER" prefHeight="500.0" prefWidth="550.0">
+                            <VBox id="Councils" prefHeight="500.0" prefWidth="525.0" />
+                        </ScrollPane>
+                    </VBox>
+                    <VBox alignment="CENTER" prefHeight="550.0" prefWidth="250.0" spacing="5.0" styleClass="vBox">
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="270.0" prefWidth="250.0">
+                            <Label alignment="CENTER" prefHeight="44.0" prefWidth="244.0" text="Authority">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                            <ScrollPane hbarPolicy="NEVER" prefHeight="225.0" prefWidth="250.0">
+                                <VBox id="Authority" prefHeight="225.0" prefWidth="225.0" />
+                            </ScrollPane>
+                     <padding>
+                        <Insets bottom="1.0" />
+                     </padding>
+                        </VBox>
+                        <VBox alignment="BOTTOM_CENTER" prefHeight="270.0" prefWidth="250.0">
+                            <Label alignment="CENTER" prefHeight="43.0" prefWidth="254.0" text="Teachers">
+                                <font>
+                                    <Font size="24.0" />
+                                </font>
+                            </Label>
+                            <ScrollPane hbarPolicy="NEVER" prefHeight="225.0" prefWidth="250.0">
+                                <VBox id="Teachers" prefHeight="225.0" prefWidth="225.0" />
+                            </ScrollPane>
+                     <padding>
+                        <Insets bottom="2.0" />
+                     </padding>
+                        </VBox>
+                    </VBox>
+                </HBox>
+                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" styleClass="bottomHBoxOutside">
+                    <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                    </padding>
+                    <Button mnemonicParsing="false" prefHeight="41.0" prefWidth="790.0" text="Calculate">
+                        <font>
+                            <Font size="19.0" />
+                        </font>
+                    </Button>
+                </HBox>
+            </VBox>
+        </Pane>
+    </center>
+</BorderPane>
