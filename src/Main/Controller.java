@@ -49,7 +49,6 @@ public class Controller {
     private VBox authorityContainer;
     @FXML
     private VBox teachersContainer;
-
     @FXML
     private VBox mondayContainer;
     @FXML
