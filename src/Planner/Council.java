@@ -3,19 +3,18 @@ package Planner;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
-
 import java.util.ArrayList;
 
 public class Council extends HBox {
-    String name;
-    int duration;
-    ArrayList<Teacher> teachers;
-    ArrayList<Authority> authorities;
+    private String name;
+    private int duration;
+    private ArrayList<Teacher> teachers;
+    private ArrayList<Authority> authorities;
 
 
-    public Council(String name, int duration){
-        this.duration=duration;
-        this.name=name;
+    public Council(String name, int duration) {
+        this.duration = duration;
+        this.name = name;
 
         Label nameLabel = new Label();
         Label durationLabel = new Label();
@@ -31,23 +30,25 @@ public class Council extends HBox {
         durationLabel.prefWidthProperty().bind(this.widthProperty());
         durationLabel.prefHeightProperty().bind(this.heightProperty());
         durationLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
-        durationLabel.setText("Duration: "+duration);
+        durationLabel.setText("Duration: " + duration);
 
         this.getChildren().addAll(nameLabel, durationLabel);
 
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
-    public int getDuration() { return duration; }
+    public int getDuration() {
+        return this.duration;
+    }
 
     public ArrayList<Teacher> getTeachers() {
-        return teachers;
+        return this.teachers;
     }
 
     public ArrayList<Authority> getAuthorities() {
-        return authorities;
+        return this.authorities;
     }
 }
