@@ -9,8 +9,11 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -51,8 +54,8 @@ public class Controller {
     private VBox fridayContainer;
 
     private ObservableList<Council> councilList = FXCollections.observableArrayList();
-    private ObservableList<Teacher> teachersList = FXCollections.observableArrayList();
-    private ObservableList<Authority> authorityList = FXCollections.observableArrayList();
+    private ObservableList<HBox> teachersList = FXCollections.observableArrayList();
+    private ObservableList<HBox> authorityList = FXCollections.observableArrayList();
 
     private ObservableList<Interval> mondayIntervals = FXCollections.observableArrayList();
     private ObservableList<Interval> tuesdayIntervals = FXCollections.observableArrayList();
@@ -60,16 +63,12 @@ public class Controller {
     private ObservableList<Interval> thursdayIntervals = FXCollections.observableArrayList();
     private ObservableList<Interval> fridayIntervals = FXCollections.observableArrayList();
 
+    private Council currentActiveCouncil = null;
+    private Authority currentActivePerson = null;
 
     @FXML
     private void initialize() {
-        // MainView:        true,  true,  false, false (Button: false)
-        // Council Options: true,  false, true,  false (Button: true)
-        // Teacher Option:  false, false, true,  true (Button: true)
-        this.mainAndCouncilScene.setVisible(true);
-        this.mainScene.setVisible(false);
-        this.councilScene.setVisible(true);
-        this.propertyScene.setVisible(false);
+        this.changeScene();
         this.initializeMainScene();
         this.initializeIntervalScene();
     }
@@ -89,11 +88,11 @@ public class Controller {
             this.councilsContainer.getChildren().setAll(this.councilList);
             this.councilsContainer.getChildren().add(addCouncilButton);
         });
-        this.teachersList.addListener((ListChangeListener<Teacher>) c -> {
+        this.teachersList.addListener((ListChangeListener<HBox>) c -> {
             this.teachersContainer.getChildren().setAll(this.teachersList);
             this.teachersContainer.getChildren().add(addTeacherButton);
         });
-        this.authorityList.addListener((ListChangeListener<Authority>) c -> {
+        this.authorityList.addListener((ListChangeListener<HBox>) c -> {
             this.authorityContainer.getChildren().setAll(this.authorityList);
             this.authorityContainer.getChildren().add(addAuthorityButton);
         });
@@ -148,6 +147,33 @@ public class Controller {
         });
     }
 
+    private void changeScene(Council council) {
+        this.mainAndCouncilScene.setVisible(true);
+        this.mainScene.setVisible(false);
+        this.councilScene.setVisible(true);
+        this.propertyScene.setVisible(false);
+        this.currentActiveCouncil = council;
+        this.currentActivePerson = null;
+    }
+
+    private void changeScene(Authority person) {
+        this.mainAndCouncilScene.setVisible(false);
+        this.mainScene.setVisible(false);
+        this.councilScene.setVisible(true);
+        this.propertyScene.setVisible(true);
+        this.currentActivePerson = person;
+        this.currentActiveCouncil = null;
+    }
+
+    private void changeScene() {
+        this.mainAndCouncilScene.setVisible(true);
+        this.mainScene.setVisible(true);
+        this.councilScene.setVisible(false);
+        this.propertyScene.setVisible(false);
+        this.currentActiveCouncil = null;
+        this.currentActivePerson = null;
+    }
+
     private void addCouncil() {
         String name = this.getName();
         if (!name.isEmpty()) {
@@ -160,9 +186,12 @@ public class Controller {
     private void addTeacher() {
         String name = this.getName();
         if (!name.isEmpty()) {
-            Teacher teacher = new Teacher(name);
+            final Teacher teacher = new Teacher(name);
+            final Button deleteButton = this.createDeleteButton(teacher);
             teacher.makeDraggable(this.rootPane, this.councilTeacherContainer);
-            this.teachersList.add(teacher);
+            HBox box = new HBox();
+            box.getChildren().addAll(teacher, deleteButton);
+            this.teachersList.add(box);
             System.out.println("Adding Teacher");
         }
     }
@@ -170,11 +199,26 @@ public class Controller {
     private void addAuthority() {
         String name = this.getName();
         if (!name.isEmpty()) {
-            Authority authority = new Authority(name);
+            final Authority authority = new Authority(name);
+            final Button deleteButton = this.createDeleteButton(authority);
             authority.makeDraggable(this.rootPane, this.councilAuthorityContainer);
-            this.authorityList.add(authority);
+            HBox box = new HBox();
+            box.getChildren().addAll(authority, deleteButton);
+            this.authorityList.add(box);
             System.out.println("Adding Authority");
         }
+    }
+
+    private Button createDeleteButton(Node node) {
+        Button deleteButton = new Button("D");
+        deleteButton.setOnMouseClicked(e -> {
+            this.teachersList.remove(node.getParent());
+            this.authorityList.remove(node.getParent());
+            if (this.currentActivePerson == node) {
+                this.changeScene();
+            }
+        });
+        return deleteButton;
     }
 
     private String getName() {
