@@ -9,10 +9,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Authority extends Draggable {
     protected String name;
-    protected TimeTable timeTable;
+    protected HashMap<String, ArrayList<Interval>> timeTable = new HashMap<String, ArrayList<Interval>>() {{
+        put("Monday", new ArrayList<>());
+        put("Tuesday", new ArrayList<>());
+        put("Wednesday", new ArrayList<>());
+        put("Thursday", new ArrayList<>());
+        put("Friday", new ArrayList<>());
+    }};
 
     public Authority(String name) {
         this.name = name;
@@ -43,7 +50,7 @@ public class Authority extends Draggable {
         return this.name;
     }
 
-    public TimeTable getTimeTable() {
+    public HashMap<String, ArrayList<Interval>> getTimeTable() {
         return this.timeTable;
     }
 
@@ -51,7 +58,7 @@ public class Authority extends Draggable {
         this.getChildren().setAll(children);
     }
 
-    public void setTimeTable(TimeTable timeTable) {
+    public void setTimeTable(HashMap<String, ArrayList<Interval>> timeTable) {
         this.timeTable = timeTable;
     }
 

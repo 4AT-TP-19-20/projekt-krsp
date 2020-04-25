@@ -73,14 +73,6 @@ public class Controller {
     private Authority currentActivePerson = null;
     private int defaultValue = 50;
 
-
-    /*
-    ToDo:
-        - Change council teacher list when drag and drop is finished / when container encounters a change
-        - Add delete buttons for each teacher / council in the property view
-        -
-     */
-
     @FXML
     private void initialize() {
         this.changeScene();
