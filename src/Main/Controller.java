@@ -21,6 +21,8 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 import javax.xml.ws.http.HTTPBinding;
+import java.util.Collection;
+import java.util.List;
 
 public class Controller {
     @FXML
@@ -109,6 +111,19 @@ public class Controller {
             this.authorityContainer.getChildren().setAll(this.authorityList);
             this.authorityContainer.getChildren().add(addAuthorityButton);
         });
+
+        this.councilTeacherContainer.getChildren().addListener((ListChangeListener<Node>) c -> {
+            if (this.currentActiveCouncil != null) {
+                this.currentActiveCouncil.getTeachers().clear();
+                this.currentActiveCouncil.getTeachers().addAll((Collection<? extends Teacher>) c.getList());
+            }
+        });
+        this.councilAuthorityContainer.getChildren().addListener((ListChangeListener<Node>) c -> {
+            if (this.currentActiveCouncil != null) {
+                this.currentActiveCouncil.getAuthorities().clear();
+                this.currentActiveCouncil.getAuthorities().addAll((Collection<? extends Authority>) c.getList());
+            }
+        });
     }
 
     private void initializeIntervalScene() {
@@ -167,11 +182,8 @@ public class Controller {
         this.councilScene.setVisible(true);
         this.propertyScene.setVisible(false);
         this.backButton.setVisible(true);
-
         this.councilTeacherContainer.getChildren().setAll(council.getTeachers());
         this.councilAuthorityContainer.getChildren().setAll(council.getAuthorities());
-
-
         this.currentActiveCouncil = council;
         this.currentActivePerson = null;
     }
