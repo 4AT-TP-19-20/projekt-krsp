@@ -147,6 +147,7 @@ public class Controller {
         });
     }
 
+    // Helper function for changing the scene to the properties of a specific council
     private void changeScene(Council council) {
         this.mainAndCouncilScene.setVisible(true);
         this.mainScene.setVisible(false);
@@ -156,6 +157,7 @@ public class Controller {
         this.currentActivePerson = null;
     }
 
+    // Helper function for changing the scene to the properties of a specific person (teacher or authority)
     private void changeScene(Authority person) {
         this.mainAndCouncilScene.setVisible(false);
         this.mainScene.setVisible(false);
@@ -165,6 +167,7 @@ public class Controller {
         this.currentActiveCouncil = null;
     }
 
+    // Helper function for changing the scene back to the main view
     private void changeScene() {
         this.mainAndCouncilScene.setVisible(true);
         this.mainScene.setVisible(true);
@@ -174,6 +177,7 @@ public class Controller {
         this.currentActivePerson = null;
     }
 
+    // Function for creating a new Council and adding it to the list
     private void addCouncil() {
         String name = this.getName();
         if (!name.isEmpty()) {
@@ -183,6 +187,7 @@ public class Controller {
         }
     }
 
+    // Function for creating a new Teacher and adding it to the list
     private void addTeacher() {
         String name = this.getName();
         if (!name.isEmpty()) {
@@ -196,6 +201,7 @@ public class Controller {
         }
     }
 
+    // Function for creating a new Authority and adding it to the list
     private void addAuthority() {
         String name = this.getName();
         if (!name.isEmpty()) {
@@ -209,6 +215,7 @@ public class Controller {
         }
     }
 
+    // Helper function for creating a button that deletes a node from it's parent
     private Button createDeleteButton(Node node) {
         Button deleteButton = new Button("D");
         deleteButton.setOnMouseClicked(e -> {
@@ -221,6 +228,7 @@ public class Controller {
         return deleteButton;
     }
 
+    // Helper function that opens an input dialog and requests the user to enter a name
     private String getName() {
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Add");
