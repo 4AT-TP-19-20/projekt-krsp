@@ -191,11 +191,8 @@ public class Controller {
     private void addTeacher() {
         String name = this.getName();
         if (!name.isEmpty()) {
-            final Teacher teacher = new Teacher(name);
-            final Button deleteButton = this.createDeleteButton(teacher);
-            teacher.makeDraggable(this.rootPane, this.councilTeacherContainer);
-            HBox box = new HBox();
-            box.getChildren().addAll(teacher, deleteButton);
+            final Teacher teacher = new Teacher(name);;
+            HBox box = this.createPersonBox(teacher);
             this.teachersList.add(box);
             System.out.println("Adding Teacher");
         }
@@ -206,13 +203,29 @@ public class Controller {
         String name = this.getName();
         if (!name.isEmpty()) {
             final Authority authority = new Authority(name);
-            final Button deleteButton = this.createDeleteButton(authority);
-            authority.makeDraggable(this.rootPane, this.councilAuthorityContainer);
-            HBox box = new HBox();
-            box.getChildren().addAll(authority, deleteButton);
+            HBox box = this.createPersonBox(authority);
             this.authorityList.add(box);
             System.out.println("Adding Authority");
         }
+    }
+
+    private HBox createPersonBox(Authority person) {
+        final Button deleteButton = this.createDeleteButton(person);
+        final Button optionsButton = this.createOptionsButton(person);
+        person.makeDraggable(this.rootPane, this.councilAuthorityContainer);
+        HBox box = new HBox();
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(optionsButton, deleteButton);
+        box.getChildren().addAll(person, vBox);
+        return box;
+    }
+
+    private Button createOptionsButton(Authority person) {
+        Button optionsButton = new Button("O");
+        optionsButton.setOnMouseClicked(e -> {
+            this.changeScene(person);
+        });
+        return optionsButton;
     }
 
     // Helper function for creating a button that deletes a node from it's parent
@@ -275,9 +288,11 @@ public class Controller {
 
     @FXML
     private void back(MouseEvent mouseEvent) {
+        this.changeScene();
     }
 
     @FXML
     public void backButtonPressed(MouseEvent mouseEvent) {
+        this.changeScene();
     }
 }
