@@ -20,11 +20,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
+import javax.xml.ws.http.HTTPBinding;
+
 public class Controller {
     @FXML
-    private  VBox councilTeacherContainer;
+    private Button backButton;
     @FXML
-    private  VBox councilAuthorityContainer;
+    private VBox councilTeacherContainer;
+    @FXML
+    private VBox councilAuthorityContainer;
     @FXML
     private Pane rootPane;
     @FXML
@@ -53,7 +57,7 @@ public class Controller {
     @FXML
     private VBox fridayContainer;
 
-    private ObservableList<Council> councilList = FXCollections.observableArrayList();
+    private ObservableList<HBox> councilList = FXCollections.observableArrayList();
     private ObservableList<HBox> teachersList = FXCollections.observableArrayList();
     private ObservableList<HBox> authorityList = FXCollections.observableArrayList();
 
@@ -66,6 +70,14 @@ public class Controller {
     private Council currentActiveCouncil = null;
     private Authority currentActivePerson = null;
     private int defaultValue = 50;
+
+
+    /*
+    ToDo:
+        - Change council teacher list when drag and drop is finished / when container encounters a change
+        - Add delete buttons for each teacher / council in the property view
+        -
+     */
 
     @FXML
     private void initialize() {
@@ -85,7 +97,7 @@ public class Controller {
         this.councilsContainer.getChildren().add(addCouncilButton);
         this.teachersContainer.getChildren().add(addTeacherButton);
         this.authorityContainer.getChildren().add(addAuthorityButton);
-        this.councilList.addListener((ListChangeListener<Council>) c -> {
+        this.councilList.addListener((ListChangeListener<HBox>) c -> {
             this.councilsContainer.getChildren().setAll(this.councilList);
             this.councilsContainer.getChildren().add(addCouncilButton);
         });
@@ -154,6 +166,7 @@ public class Controller {
         this.mainScene.setVisible(false);
         this.councilScene.setVisible(true);
         this.propertyScene.setVisible(false);
+        this.backButton.setVisible(true);
         this.currentActiveCouncil = council;
         this.currentActivePerson = null;
     }
@@ -164,6 +177,7 @@ public class Controller {
         this.mainScene.setVisible(false);
         this.councilScene.setVisible(true);
         this.propertyScene.setVisible(true);
+        this.backButton.setVisible(true);
         this.currentActivePerson = person;
         this.currentActiveCouncil = null;
     }
@@ -174,6 +188,7 @@ public class Controller {
         this.mainScene.setVisible(true);
         this.councilScene.setVisible(false);
         this.propertyScene.setVisible(false);
+        this.backButton.setVisible(false);
         this.currentActiveCouncil = null;
         this.currentActivePerson = null;
     }
@@ -181,9 +196,18 @@ public class Controller {
     // Function for creating a new Council and adding it to the list
     private void addCouncil() {
         String name = this.getName();
-        if (!name.isEmpty()) {
-            Council council = new Council(name, this.defaultValue);
-            this.councilList.add(council);
+        if (name != null && !name.isEmpty()) {
+            final Council council = new Council(name, this.defaultValue);
+            HBox box = new HBox();
+            VBox vBox = new VBox();
+            Button deleteButton = this.createDeleteButton(council);
+            Button optionsButton = new Button("O");
+            optionsButton.setOnMouseClicked(e -> {
+                this.changeScene(council);
+            });
+            vBox.getChildren().addAll(optionsButton, deleteButton);
+            box.getChildren().addAll(council, vBox);
+            this.councilList.add(box);
             System.out.println("Adding Council");
         }
     }
@@ -191,9 +215,9 @@ public class Controller {
     // Function for creating a new Teacher and adding it to the list
     private void addTeacher() {
         String name = this.getName();
-        if (!name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             final Teacher teacher = new Teacher(name);;
-            HBox box = this.createPersonBox(teacher);
+            HBox box = this.createPersonBox(teacher, this.councilTeacherContainer);
             this.teachersList.add(box);
             System.out.println("Adding Teacher");
         }
@@ -202,19 +226,19 @@ public class Controller {
     // Function for creating a new Authority and adding it to the list
     private void addAuthority() {
         String name = this.getName();
-        if (!name.isEmpty()) {
+        if (name != null && !name.isEmpty()) {
             final Authority authority = new Authority(name);
-            HBox box = this.createPersonBox(authority);
+            HBox box = this.createPersonBox(authority, this.councilAuthorityContainer);
             this.authorityList.add(box);
             System.out.println("Adding Authority");
         }
     }
 
     // Helper function for creating a box with name, options button and delete button
-    private HBox createPersonBox(Authority person) {
+    private HBox createPersonBox(Authority person, Node container) {
         final Button deleteButton = this.createDeleteButton(person);
         final Button optionsButton = this.createOptionsButton(person);
-        person.makeDraggable(this.rootPane, this.councilAuthorityContainer);
+        person.makeDraggable(this.rootPane, container);
         HBox box = new HBox();
         VBox vBox = new VBox();
         vBox.getChildren().addAll(optionsButton, deleteButton);
@@ -235,8 +259,13 @@ public class Controller {
     private Button createDeleteButton(Node node) {
         Button deleteButton = new Button("D");
         deleteButton.setOnMouseClicked(e -> {
-            this.teachersList.remove(node.getParent());
-            this.authorityList.remove(node.getParent());
+            if (node instanceof Teacher) {
+                this.teachersList.remove(node.getParent());
+            } else if (node instanceof Authority) {
+                this.authorityList.remove(node.getParent());
+            } else if (node instanceof Council) {
+                this.councilList.remove(node.getParent());
+            }
             if (this.currentActivePerson == node) {
                 this.changeScene();
             }
