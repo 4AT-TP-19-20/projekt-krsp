@@ -65,6 +65,7 @@ public class Controller {
 
     private Council currentActiveCouncil = null;
     private Authority currentActivePerson = null;
+    private int defaultValue = 50;
 
     @FXML
     private void initialize() {
@@ -181,7 +182,7 @@ public class Controller {
     private void addCouncil() {
         String name = this.getName();
         if (!name.isEmpty()) {
-            Council council = new Council(/*name*/);
+            Council council = new Council(name, this.defaultValue);
             this.councilList.add(council);
             System.out.println("Adding Council");
         }

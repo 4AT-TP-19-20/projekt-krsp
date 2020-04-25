@@ -13,7 +13,7 @@ public class Council extends HBox {
     ArrayList<Authority> authorities;
 
 
-    public Council(/*String name, int duration*/){
+    public Council(String name, int duration){
         this.duration=duration;
         this.name=name;
 
