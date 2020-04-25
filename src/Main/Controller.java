@@ -56,6 +56,9 @@ public class Controller {
 
     @FXML
     private void initialize() {
+        // MainView:        true,  true,  false, false (Button: false)
+        // Council Options: true,  false, true,  false (Button: true)
+        // Teacher Option:  false, false, true,  true (Button: true)
         this.mainAndCouncilScene.setVisible(true);
         this.mainScene.setVisible(true);
         this.councilScene.setVisible(false);
@@ -139,14 +142,17 @@ public class Controller {
     }
 
     private void addCouncil() {
+        this.councilList.add(new Council());
         System.out.println("Adding Council");
     }
 
     private void addTeacher() {
+        this.teachersList.add(new Teacher(""));
         System.out.println("Adding Teacher");
     }
 
     private void addAuthority() {
+        this.authorityList.add(new Authority(""));
         System.out.println("Adding Authority");
     }
 

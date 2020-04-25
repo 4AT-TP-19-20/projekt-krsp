@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import java.net.URL?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-            prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="Main.Controller">
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Main.Controller">
     <center>
-        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0"
-              prefWidth="800.0" BorderPane.alignment="CENTER">
+        <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" BorderPane.alignment="CENTER">
             <stylesheets>
-                <URL value="@properties.css"/>
+                <URL value="@properties.css" />
             </stylesheets>
-            <VBox fx:id="mainAndCouncilScene" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                  minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
-                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" spacing="5.0"
-                      styleClass="topHBoxOutside">
+            <VBox fx:id="mainAndCouncilScene" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" spacing="5.0" styleClass="topHBoxOutside">
                     <padding>
-                        <Insets left="5.0" right="5.0" top="5.0"/>
+                        <Insets left="5.0" right="5.0" top="5.0" />
                     </padding>
                     <StackPane prefHeight="550.0" prefWidth="550.0">
                         <VBox fx:id="mainScene" alignment="CENTER" prefHeight="550.0" prefWidth="550.0" spacing="5.0">
                             <Label alignment="CENTER" prefHeight="35.0" prefWidth="543.0" text="Councils">
                                 <font>
-                                    <Font size="24.0"/>
+                                    <Font size="24.0" />
                                 </font>
                             </Label>
                             <ScrollPane hbarPolicy="NEVER" prefHeight="500.0" prefWidth="550.0">
-                                <VBox fx:id="councilsContainer" prefHeight="500.0" prefWidth="525.0">
+                                <VBox fx:id="councilsContainer" prefWidth="525.0" spacing="5">
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </VBox>
                             </ScrollPane>
@@ -41,16 +36,15 @@
                             <HBox prefHeight="50.0" prefWidth="550.0">
                                 <Label prefHeight="46.0" prefWidth="72.0" text="Name:">
                                     <font>
-                                        <Font size="22.0"/>
+                                        <Font size="22.0" />
                                     </font>
                                 </Label>
                             </HBox>
                             <HBox prefHeight="500.0" prefWidth="550.0">
                                 <VBox prefHeight="500.0" prefWidth="275.0">
-                                    <Label alignment="CENTER" prefHeight="45.0" prefWidth="275.0" text="Teachers"
-                                           textAlignment="CENTER">
+                                    <Label alignment="CENTER" prefHeight="45.0" prefWidth="275.0" text="Teachers" textAlignment="CENTER">
                                         <font>
-                                            <Font size="20.0"/>
+                                            <Font size="20.0" />
                                         </font>
                                     </Label>
                                     <ScrollPane prefHeight="450.0" prefWidth="275.0">
@@ -59,10 +53,9 @@
                                     </ScrollPane>
                                 </VBox>
                                 <VBox prefHeight="500.0" prefWidth="275.0">
-                                    <Label alignment="CENTER" prefHeight="45.0" prefWidth="275.0" text="Authority"
-                                           textAlignment="CENTER">
+                                    <Label alignment="CENTER" prefHeight="45.0" prefWidth="275.0" text="Authority" textAlignment="CENTER">
                                         <font>
-                                            <Font size="20.0"/>
+                                            <Font size="20.0" />
                                         </font>
                                     </Label>
                                     <ScrollPane prefHeight="450.0" prefWidth="275.0">
@@ -77,158 +70,144 @@
                         <VBox alignment="BOTTOM_CENTER" prefHeight="270.0" prefWidth="250.0">
                             <Label alignment="CENTER" prefHeight="44.0" prefWidth="244.0" text="Authority">
                                 <font>
-                                    <Font size="24.0"/>
+                                    <Font size="24.0" />
                                 </font>
                             </Label>
                             <ScrollPane hbarPolicy="NEVER" prefHeight="225.0" prefWidth="250.0">
-                                <VBox fx:id="authorityContainer" prefHeight="225.0" prefWidth="225.0">
+                                <VBox fx:id="authorityContainer" prefWidth="225.0" spacing="5">
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </VBox>
                             </ScrollPane>
                             <padding>
-                                <Insets bottom="1.0"/>
+                                <Insets bottom="1.0" />
                             </padding>
                         </VBox>
                         <VBox alignment="BOTTOM_CENTER" prefHeight="270.0" prefWidth="250.0">
                             <Label alignment="CENTER" prefHeight="43.0" prefWidth="254.0" text="Teachers">
                                 <font>
-                                    <Font size="24.0"/>
+                                    <Font size="24.0" />
                                 </font>
                             </Label>
                             <ScrollPane hbarPolicy="NEVER" prefHeight="225.0" prefWidth="250.0">
-                                <VBox fx:id="teachersContainer" prefHeight="225.0" prefWidth="225.0">
+                                <VBox fx:id="teachersContainer" prefWidth="225.0" spacing="5">
                                     <padding>
-                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                     </padding>
                                 </VBox>
                             </ScrollPane>
                             <padding>
-                                <Insets bottom="2.0"/>
+                                <Insets bottom="2.0" />
                             </padding>
                         </VBox>
                     </VBox>
                 </HBox>
-                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-                      minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" styleClass="bottomHBoxOutside">
+                <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" styleClass="bottomHBoxOutside">
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                     <StackPane>
-                        <Button mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="41.0" prefWidth="790.0"
-                                text="Calculate">
+                        <Button mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="41.0" prefWidth="790.0" text="Calculate">
                             <font>
-                                <Font size="19.0"/>
+                                <Font size="19.0" />
                             </font>
                         </Button>
-                        <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="41.0" prefWidth="790.0"
-                                text="Back">
+                        <Button mnemonicParsing="false" onMouseClicked="#back" prefHeight="41.0" prefWidth="790.0" text="Back" visible="false">
                             <font>
-                                <Font size="19.0"/>
+                                <Font size="19.0" />
                             </font>
                         </Button>
                     </StackPane>
                 </HBox>
             </VBox>
-            <VBox fx:id="propertyScene" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity"
-                  minHeight="-Infinity"
-                  minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
-                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0" spacing="5.0"
-                      styleClass="topHBoxInside">
+            <VBox fx:id="propertyScene" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="800.0" spacing="5.0" styleClass="topHBoxInside">
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
                     <opaqueInsets>
-                        <Insets/>
+                        <Insets />
                     </opaqueInsets>
                     <Label prefHeight="35.0" prefWidth="120.0" text="Name:">
                         <font>
-                            <Font size="24.0"/>
+                            <Font size="24.0" />
                         </font>
                         <HBox.margin>
-                            <Insets/>
+                            <Insets />
                         </HBox.margin>
                     </Label>
                 </HBox>
-                <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="5.0"
-                      styleClass="centerHBox">
+                <HBox alignment="CENTER" minWidth="-Infinity" prefHeight="500.0" prefWidth="800.0" spacing="5.0" styleClass="centerHBox">
                     <padding>
-                        <Insets bottom="5.0"/>
+                        <Insets bottom="5.0" />
                     </padding>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Monday"
-                               textAlignment="CENTER">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Monday" textAlignment="CENTER">
                             <font>
-                                <Font size="24.0"/>
+                                <Font size="24.0" />
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
-                            <VBox fx:id="mondayContainer" maxHeight="-Infinity" maxWidth="-Infinity"
-                                  minHeight="-Infinity"
-                                  minWidth="-Infinity" prefHeight="450.0" prefWidth="137.0">
+                            <VBox fx:id="mondayContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="137.0">
                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                 </padding>
                             </VBox>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Tuesday"
-                               textAlignment="CENTER">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Tuesday" textAlignment="CENTER">
                             <font>
-                                <Font size="24.0"/>
+                                <Font size="24.0" />
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
                             <VBox fx:id="tuesdayContainer" prefHeight="450.0" prefWidth="137.0">
                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                 </padding>
                             </VBox>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Wednesday"
-                               textAlignment="CENTER">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Wednesday" textAlignment="CENTER">
                             <font>
-                                <Font size="24.0"/>
+                                <Font size="24.0" />
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
                             <VBox fx:id="wednesdayContainer" prefHeight="450.0" prefWidth="137.0">
                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                 </padding>
                             </VBox>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Thursday"
-                               textAlignment="CENTER">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Thursday" textAlignment="CENTER">
                             <font>
-                                <Font size="24.0"/>
+                                <Font size="24.0" />
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
                             <VBox fx:id="thursdayContainer" prefHeight="450.0" prefWidth="137.0">
                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                 </padding>
                             </VBox>
                         </ScrollPane>
                     </VBox>
                     <VBox alignment="CENTER" prefHeight="500.0" prefWidth="154.0">
-                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Friday"
-                               textAlignment="CENTER">
+                        <Label contentDisplay="CENTER" prefHeight="45.0" prefWidth="154.0" text="Friday" textAlignment="CENTER">
                             <font>
-                                <Font size="24.0"/>
+                                <Font size="24.0" />
                             </font>
                         </Label>
                         <ScrollPane hbarPolicy="NEVER" prefHeight="450.0" prefWidth="154.0">
                             <VBox fx:id="fridayContainer" prefHeight="450.0" prefWidth="137.0">
                                 <padding>
-                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                    <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                 </padding>
                             </VBox>
                         </ScrollPane>
@@ -236,12 +215,11 @@
                 </HBox>
                 <HBox alignment="CENTER" prefHeight="50.0" prefWidth="800.0" styleClass="bottomHBoxOutside">
                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
-                    <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="790.0" text="Back"
-                            onMouseClicked="#backButtonPressed">
+                    <Button mnemonicParsing="false" onMouseClicked="#backButtonPressed" prefHeight="31.0" prefWidth="790.0" text="Back">
                         <font>
-                            <Font size="19.0"/>
+                            <Font size="19.0" />
                         </font>
                     </Button>
                 </HBox>
