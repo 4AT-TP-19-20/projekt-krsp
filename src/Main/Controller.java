@@ -209,6 +209,7 @@ public class Controller {
         }
     }
 
+    // Helper function for creating a box with name, options button and delete button
     private HBox createPersonBox(Authority person) {
         final Button deleteButton = this.createDeleteButton(person);
         final Button optionsButton = this.createOptionsButton(person);
@@ -220,6 +221,7 @@ public class Controller {
         return box;
     }
 
+    // Helper function for creating a button that return a button to open a persons (teacher / authority) properties
     private Button createOptionsButton(Authority person) {
         Button optionsButton = new Button("O");
         optionsButton.setOnMouseClicked(e -> {
@@ -287,12 +289,7 @@ public class Controller {
     }
 
     @FXML
-    private void back(MouseEvent mouseEvent) {
-        this.changeScene();
-    }
-
-    @FXML
-    public void backButtonPressed(MouseEvent mouseEvent) {
+    public void backButtonPressed() {
         this.changeScene();
     }
 }
