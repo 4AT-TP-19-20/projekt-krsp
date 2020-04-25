@@ -9,14 +9,21 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
 public class Controller {
-
+    @FXML
+    private  VBox councilTeacherContainer;
+    @FXML
+    private  VBox councilAuthorityContainer;
+    @FXML
+    private Pane rootPane;
     @FXML
     private VBox propertyScene;
     @FXML
@@ -60,8 +67,8 @@ public class Controller {
         // Council Options: true,  false, true,  false (Button: true)
         // Teacher Option:  false, false, true,  true (Button: true)
         this.mainAndCouncilScene.setVisible(true);
-        this.mainScene.setVisible(true);
-        this.councilScene.setVisible(false);
+        this.mainScene.setVisible(false);
+        this.councilScene.setVisible(true);
         this.propertyScene.setVisible(false);
         this.initializeMainScene();
         this.initializeIntervalScene();
@@ -142,20 +149,42 @@ public class Controller {
     }
 
     private void addCouncil() {
-        this.councilList.add(new Council());
-        System.out.println("Adding Council");
+        String name = this.getName();
+        if (!name.isEmpty()) {
+            Council council = new Council(/*name*/);
+            this.councilList.add(council);
+            System.out.println("Adding Council");
+        }
     }
 
     private void addTeacher() {
-        this.teachersList.add(new Teacher(""));
-        System.out.println("Adding Teacher");
+        String name = this.getName();
+        if (!name.isEmpty()) {
+            Teacher teacher = new Teacher(name);
+            teacher.makeDraggable(this.rootPane, this.councilTeacherContainer);
+            this.teachersList.add(teacher);
+            System.out.println("Adding Teacher");
+        }
     }
 
     private void addAuthority() {
-        this.authorityList.add(new Authority(""));
-        System.out.println("Adding Authority");
+        String name = this.getName();
+        if (!name.isEmpty()) {
+            Authority authority = new Authority(name);
+            authority.makeDraggable(this.rootPane, this.councilAuthorityContainer);
+            this.authorityList.add(authority);
+            System.out.println("Adding Authority");
+        }
     }
 
+    private String getName() {
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Add");
+        dialog.setHeaderText("Enter the name:");
+        dialog.setContentText("Name:");
+        dialog.showAndWait();
+        return dialog.getResult();
+    }
 
     // Helper function for creating a circular button
     private StackPane createCircularButton() {
