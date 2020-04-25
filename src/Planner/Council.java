@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class Council extends HBox {
     private String name;
     private int duration;
-    private ArrayList<Teacher> teachers;
-    private ArrayList<Authority> authorities;
+    private ArrayList<Teacher> teachers = new ArrayList<>();
+    private ArrayList<Authority> authorities = new ArrayList<>();
 
 
     public Council(String name, int duration) {

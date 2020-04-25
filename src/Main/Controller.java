@@ -167,6 +167,11 @@ public class Controller {
         this.councilScene.setVisible(true);
         this.propertyScene.setVisible(false);
         this.backButton.setVisible(true);
+
+        this.councilTeacherContainer.getChildren().setAll(council.getTeachers());
+        this.councilAuthorityContainer.getChildren().setAll(council.getAuthorities());
+
+
         this.currentActiveCouncil = council;
         this.currentActivePerson = null;
     }
