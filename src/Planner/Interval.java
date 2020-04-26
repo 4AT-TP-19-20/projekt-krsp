@@ -45,7 +45,7 @@ public class Interval extends HBox {
 
         this.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                if (!startValueLabel.getText().isEmpty()) {
+                if (!startValueTextField.getText().isEmpty()) {
                     double start = Double.parseDouble(startValueTextField.getText());
                     double end = (endValueTextField.getText().isEmpty() ? start : Double.parseDouble(endValueTextField.getText()));
                     if (start >= 0 && start <= 24 && start <= end) {

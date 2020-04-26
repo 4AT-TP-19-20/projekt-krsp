@@ -27,6 +27,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
+/*
+ToDo:
+    - Name display when scene changes
+    - Name change feature
+    - Delete buttons for intervals
+ */
+
 public class Controller {
     @FXML
     private Button backButton;
