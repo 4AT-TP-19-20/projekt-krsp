@@ -6,8 +6,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 
 public class Interval extends HBox {
-    String startValue="from";
-    String endValue="to";
+    private String startValue = "from";
+    private String endValue = "to";
 
     public Interval() {
         Label startValueLabel = new Label();
@@ -15,7 +15,7 @@ public class Interval extends HBox {
         TextField startValueTextField = new TextField();
         TextField endValueTextField = new TextField();
 
-        this.setMinSize(100,40);
+        this.setMinSize(100, 40);
         this.setStyle("-fx-background-color: white; -fx-alignment: center");
 
         startValueTextField.setMinHeight(40);
@@ -24,41 +24,43 @@ public class Interval extends HBox {
         startValueLabel.prefWidthProperty().bind(this.widthProperty());
         startValueLabel.prefHeightProperty().bind(this.heightProperty());
         startValueLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center; -fx-border-color: black");
-        startValueLabel.setText(startValue);
+        startValueLabel.setText(this.startValue);
 
         endValueLabel.prefWidthProperty().bind(this.widthProperty());
         endValueLabel.prefHeightProperty().bind(this.heightProperty());
         endValueLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center; -fx-border-color: black");
-        endValueLabel.setText(endValue);
+        endValueLabel.setText(this.endValue);
 
-        this.getChildren().addAll(startValueLabel,endValueLabel);
+        this.getChildren().addAll(startValueLabel, endValueLabel);
 
-        startValueLabel.setOnMouseClicked(e->{
+        startValueLabel.setOnMouseClicked(e -> {
             this.getChildren().clear();
-            this.getChildren().addAll(startValueTextField,endValueLabel);
+            this.getChildren().addAll(startValueTextField, endValueLabel);
         });
 
-        endValueLabel.setOnMouseClicked(e->{
+        endValueLabel.setOnMouseClicked(e -> {
             this.getChildren().clear();
             this.getChildren().addAll(startValueLabel, endValueTextField);
-
         });
 
         this.setOnKeyPressed(event -> {
-                    if (event.getCode().equals(KeyCode.ENTER)) {
-                        this.getChildren().clear();
-                        if (!startValueTextField.getText().isEmpty()) startValue=startValueTextField.getText();
-                        if (!endValueTextField.getText().isEmpty()) endValue=endValueTextField.getText();
-                        startValueLabel.setText(startValue);
-                        endValueLabel.setText(endValue);
-                        this.getChildren().addAll(startValueLabel,endValueLabel);
-                    }
-                }
-        );
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                this.getChildren().clear();
+                if (!startValueTextField.getText().isEmpty()) this.startValue = startValueTextField.getText();
+                if (!endValueTextField.getText().isEmpty()) this.endValue = endValueTextField.getText();
+                startValueLabel.setText(this.startValue);
+                endValueLabel.setText(this.endValue);
+                this.getChildren().addAll(startValueLabel, endValueLabel);
+            }
+        });
 
     }
 
-    public String getStartValue() { return startValue; }
+    public String getStartValue() {
+        return this.startValue;
+    }
 
-    public String getEndValue() { return endValue; }
+    public String getEndValue() {
+        return this.endValue;
+    }
 }
