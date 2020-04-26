@@ -1,5 +1,6 @@
 package Planner;
 
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
@@ -11,28 +12,28 @@ public class Council extends HBox {
     private ArrayList<Teacher> teachers = new ArrayList<>();
     private ArrayList<Authority> authorities = new ArrayList<>();
 
+    private Label nameLabel = new Label();
+    private Label durationLabel = new Label();
 
     public Council(String name, int duration) {
         this.duration = duration;
         this.name = name;
 
-        Label nameLabel = new Label();
-        Label durationLabel = new Label();
 
         this.setPrefSize(550, 50);
         this.setMaxHeight(50);
         this.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-alignment: center");
-        nameLabel.prefWidthProperty().bind(this.widthProperty());
-        nameLabel.prefHeightProperty().bind(this.heightProperty());
-        nameLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
-        nameLabel.setText(name);
+        this.nameLabel.prefWidthProperty().bind(this.widthProperty());
+        this.nameLabel.prefHeightProperty().bind(this.heightProperty());
+        this.nameLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
+        this.nameLabel.setText(this.name);
 
-        durationLabel.prefWidthProperty().bind(this.widthProperty());
-        durationLabel.prefHeightProperty().bind(this.heightProperty());
-        durationLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
-        durationLabel.setText("Duration: " + duration);
+        this.durationLabel.prefWidthProperty().bind(this.widthProperty());
+        this.durationLabel.prefHeightProperty().bind(this.heightProperty());
+        this.durationLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
+        this.durationLabel.setText("Duration: " + duration);
 
-        this.getChildren().addAll(nameLabel, durationLabel);
+        this.getChildren().addAll(this.nameLabel, this.durationLabel);
 
     }
 
@@ -50,5 +51,10 @@ public class Council extends HBox {
 
     public ArrayList<Authority> getAuthorities() {
         return this.authorities;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        this.nameLabel.setText(this.name);
     }
 }

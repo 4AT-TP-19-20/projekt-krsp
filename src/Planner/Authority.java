@@ -1,6 +1,7 @@
 package Planner;
 
 import Draggable.Draggable;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,6 +21,7 @@ public class Authority extends Draggable {
         put("Thursday", new ArrayList<>());
         put("Friday", new ArrayList<>());
     }};
+    protected Label nameLabel = new Label();
 
     public Authority(String name) {
         this.name = name;
@@ -30,11 +32,11 @@ public class Authority extends Draggable {
         HBox box = new HBox();
         box.setPrefSize(200, 50);
         box.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-alignment: center");
-        Label label = new Label(this.name);
-        label.prefWidthProperty().bind(box.widthProperty());
-        label.prefHeightProperty().bind(box.heightProperty());
-        label.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
-        box.getChildren().add(label);
+        nameLabel.setText(this.name);
+        nameLabel.prefWidthProperty().bind(box.widthProperty());
+        nameLabel.prefHeightProperty().bind(box.heightProperty());
+        nameLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
+        box.getChildren().add(nameLabel);
 
         this.getChildren().add(box);
     }
@@ -68,5 +70,10 @@ public class Authority extends Draggable {
 
     public void makeDraggable(Pane rootPane, ArrayList<Node> possibleContainers) {
         super.makeDraggable(rootPane, possibleContainers);
+    }
+
+    public void setName(String name) {
+        this.name = name;
+        nameLabel.setText(this.name);
     }
 }

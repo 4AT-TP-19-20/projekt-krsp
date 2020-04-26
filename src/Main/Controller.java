@@ -30,10 +30,10 @@ import java.util.HashMap;
 
 /*
 ToDo:
-    - Name display when scene changes
     - Name change feature
     - Delete buttons for intervals
     - Delete button for teachers and authority in council view
+    - Duration menu
  */
 
 public class Controller {
@@ -194,6 +194,13 @@ public class Controller {
         this.currentActivePerson = null;
 
         this.nameLabelCouncilScene.setText("Name: " + council.getName());
+        this.nameLabelCouncilScene.setOnMouseClicked(e -> {
+            String newName = this.getName();
+            if (newName != null && !newName.isEmpty()) {
+                council.setName(newName);
+                this.nameLabelCouncilScene.setText("Name: " + council.getName());
+            }
+        });
     }
 
     // Helper function for changing the scene to the properties of a specific person (teacher or authority)
@@ -216,7 +223,13 @@ public class Controller {
 
 
         this.nameLabelPersonScene.setText("Name: " + person.getName());;
-
+        this.nameLabelPersonScene.setOnMouseClicked(e -> {
+            String newName = this.getName();
+            if (newName != null && !newName.isEmpty()) {
+                person.setName(newName);
+                this.nameLabelPersonScene.setText("Name: " + person.getName());
+            }
+        });
     }
 
     // Helper function for changing the scene back to the main view
