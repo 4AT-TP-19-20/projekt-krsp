@@ -113,26 +113,26 @@
                     <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                     </padding>
-                    <StackPane>
-                        <HBox spacing="5">
+                    <HBox spacing="5">
+                        <StackPane>
                             <Button mnemonicParsing="false" onMouseClicked="#calculate" prefHeight="41.0" prefWidth="545.0" text="Calculate">
                                 <font>
                                     <Font size="19.0" />
                                 </font>
                             </Button>
-                            <TextField fx:id="timeArea" text="50.0" prefHeight="41.0" prefWidth="120.0" />
-                            <Button mnemonicParsing="false" onMouseClicked="#changeDefaultTime" prefHeight="41.0" prefWidth="120.0" text="Apply">
+                            <Button fx:id="backButton" mnemonicParsing="false" onMouseClicked="#backButtonPressed" prefHeight="41.0" prefWidth="545.0" text="Back" visible="false">
                                 <font>
                                     <Font size="19.0" />
                                 </font>
                             </Button>
-                        </HBox>
-                        <Button fx:id="backButton" mnemonicParsing="false" onMouseClicked="#backButtonPressed" prefHeight="41.0" prefWidth="790.0" text="Back" visible="false">
+                        </StackPane>
+                        <TextField fx:id="timeArea" text="50.0" prefHeight="41.0" prefWidth="120.0" />
+                        <Button mnemonicParsing="false" onMouseClicked="#changeDefaultTime" prefHeight="41.0" prefWidth="120.0" text="Apply [min]">
                             <font>
-                                <Font size="19.0" />
+                                <Font size="17.0" />
                             </font>
                         </Button>
-                    </StackPane>
+                    </HBox>
                 </HBox>
             </VBox>
             <VBox fx:id="propertyScene" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0">

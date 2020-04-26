@@ -13,6 +13,7 @@ public class Council extends HBox {
     private ArrayList<Authority> authorities = new ArrayList<>();
 
     private Label nameLabel = new Label();
+    private Label durationLabel = new Label();
 
     public Council(String name, double duration) {
         this.duration = duration;
@@ -27,11 +28,10 @@ public class Council extends HBox {
         this.nameLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
         this.nameLabel.setText(this.name);
 
-        Label durationLabel = new Label();
-        durationLabel.prefWidthProperty().bind(this.widthProperty());
-        durationLabel.prefHeightProperty().bind(this.heightProperty());
-        durationLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
-        durationLabel.setText("Duration: " + duration);
+        this.durationLabel.prefWidthProperty().bind(this.widthProperty());
+        this.durationLabel.prefHeightProperty().bind(this.heightProperty());
+        this.durationLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
+        this.durationLabel.setText("Duration: " + duration);
 
         this.getChildren().addAll(this.nameLabel, durationLabel);
 
@@ -47,6 +47,7 @@ public class Council extends HBox {
 
     public void setDuration(double duration) {
         this.duration = duration;
+        this.durationLabel.setText("Duration: " + duration);
     }
 
     public ArrayList<Teacher> getTeachers() {

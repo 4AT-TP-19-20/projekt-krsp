@@ -207,6 +207,7 @@ public class Controller {
         this.councilAuthorityContainer.getChildren().setAll(council.getAuthorities());
 
 
+        this.timeArea.setText(String.valueOf(council.getDuration()));
 
         this.currentActiveCouncil = council;
         this.currentActivePerson = null;
@@ -257,6 +258,7 @@ public class Controller {
         this.councilScene.setVisible(false);
         this.propertyScene.setVisible(false);
         this.backButton.setVisible(false);
+        this.timeArea.setText(String.valueOf(this.defaultValue));
         this.currentActiveCouncil = null;
         this.currentActivePerson = null;
     }
@@ -653,13 +655,20 @@ public class Controller {
     private void changeDefaultTime() {
         String newValue = this.timeArea.getText();
         if (!newValue.isEmpty()) {
+            double newVal;
             try {
-                this.defaultValue = Double.parseDouble(newValue);
-                for (HBox b : this.councilList) {
-                    ((Council)b.getChildren().get(0)).setDuration(this.defaultValue);
-                }
-            } catch (Exception ignore) {}
-            this.timeArea.setText(String.valueOf(this.defaultValue));
+                newVal = Double.parseDouble(newValue);
+            } catch (Exception ignore) {
+                return;
+            }
+            if (this.mainScene.isVisible()) {
+                // Main scene -> default
+                this.defaultValue = newVal;
+            } else {
+                // Council scene -> council only
+                this.currentActiveCouncil.setDuration(newVal);
+            }
+            this.timeArea.setText(String.valueOf(newVal));
         }
     }
 }
