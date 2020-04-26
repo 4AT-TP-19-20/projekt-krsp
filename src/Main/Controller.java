@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import org.omg.CORBA.INTERNAL;
 
 import javax.xml.ws.http.HTTPBinding;
 import java.util.ArrayList;
@@ -338,48 +339,48 @@ public class Controller {
     @FXML
     private void calculate() {
         // Create a list with all councils and their overlapping intervals
-        HashMap<Council, ArrayList<Interval>> list = new HashMap<>();
-        for (HBox h : this.councilList) {
-            ArrayList<Interval> checker = new ArrayList<>();
-            Council c = (Council)h.getChildren().get(0);
-            ArrayList<Authority> persons = new ArrayList<>();
-            persons.addAll(c.getTeachers());
-            persons.addAll(c.getAuthorities());
-            for (int i = 0; i < persons.size(); i++) {
-                Authority t = persons.get(i);
-                for (String s : t.getTimeTable().keySet()) {
-                    if (i == 0) {
-                        checker.addAll(t.getTimeTable().get(s));
-                    } else {
-                        for (Interval in : t.getTimeTable().get(s)) {
-                            for (int j = checker.size() - 1; j >= 0; j--) {
-                                Interval ch = checker.get(j);
-                                Interval overlap = this.overlaps(in, ch);
-                                if (overlap == null) {
-                                    checker.remove(ch);
-                                } else {
-                                    checker.set(j, overlap);
+
+        HashMap<Council, HashMap<String, ArrayList<Interval>>> list = new HashMap<>();
+        for (HBox b : this.councilList) {
+            Council council = (Council) b.getChildren().get(0);
+            ArrayList<Authority> persons = council.getAuthorities();
+            persons.addAll(council.getTeachers());
+            HashMap<String, Interval> intervals = null;
+            for (Authority a : persons) {
+                HashMap<String, ArrayList<Interval>> l = a.getTimeTable();
+                if (intervals == null) {
+                    intervals = new HashMap<>();
+                    for (int i = 0; i < l.size(); i++) {
+                        String key = new ArrayList<>(l.keySet()).get(i);
+                        for (Interval in : l.get(key)) {
+                            intervals.put(key, in);
+                        }
+                    }
+                } else {
+                    HashMap<String, Interval> newList = new HashMap<>();
+                    for (int i = 0; i < l.size(); i++) {
+                        String key = new ArrayList<>(l.keySet()).get(i);
+                        for (Interval in : l.get(key)) {
+                            // Check if overlaps
+                            for (int j = 0; j < intervals.size(); j++) {
+                                String day = new ArrayList<>(intervals.keySet()).get(j);
+                                if (day.equals(key)) {
+                                    Interval overlap = this.overlaps(in, intervals.get(day));
+                                    if (overlap != null) {
+                                        newList.put(day, overlap);
+                                    }
                                 }
                             }
                         }
                     }
+                    if (newList.size() == 0) {
+                        // Error
+                    } else {
+                        intervals = newList;
+                    }
                 }
             }
-            if (checker.size() > 0) {
-                list.put(c, checker);
-            } else {
-                // Error
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setHeaderText("Could not calculate a timetable");
-                alert.setContentText("Council " + c.getName() + " has no time-interval where all members have time");
-                alert.showAndWait();
-                return;
-            }
         }
-
-        System.out.println("Success");
-
 
     }
 
