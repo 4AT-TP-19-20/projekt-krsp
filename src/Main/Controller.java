@@ -484,15 +484,18 @@ public class Controller {
         } else {
             // Export as CSV
             ArrayList<HashMap<Council, HashMap<String, Interval>>> finishedSchedule = returnValue.get(new ArrayList<>(returnValue.keySet()).get(0));
+            StringBuilder builder = new StringBuilder();
+            for (HashMap<Council, HashMap<String, Interval>> m : finishedSchedule) {
+                Council c = new ArrayList<>(m.keySet()).get(0);
+                HashMap<String, Interval> map = m.get(c);
+                String day = new ArrayList<>(map.keySet()).get(0);
+                Interval i = map.get(day);
+                builder.append(c.getName()).append(";").append(day).append(";").append(i.getStartValue()).append(";").append(i.getEndValue()).append("\n");
+            }
+            String toPrint = builder.toString().replaceAll(",", ".");
             try {
                 FileWriter csvWriter = new FileWriter("save.csv");
-                for (HashMap<Council, HashMap<String, Interval>> m : finishedSchedule) {
-                    Council c = new ArrayList<>(m.keySet()).get(0);
-                    HashMap<String, Interval> map = m.get(c);
-                    String day = new ArrayList<>(map.keySet()).get(0);
-                    Interval i = map.get(day);
-                    csvWriter.append(c.getName()).append(";").append(day).append(";").append(i.getStartValue()).append(";").append(i.getEndValue()).append("\n");
-                }
+                csvWriter.append(toPrint);
                 csvWriter.close();
             } catch (IOException e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
