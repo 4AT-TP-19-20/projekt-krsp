@@ -45,12 +45,24 @@ public class Interval extends HBox {
 
         this.setOnKeyPressed(event -> {
             if (event.getCode().equals(KeyCode.ENTER)) {
-                this.getChildren().clear();
-                if (!startValueTextField.getText().isEmpty()) this.startValue = startValueTextField.getText();
-                if (!endValueTextField.getText().isEmpty()) this.endValue = endValueTextField.getText();
-                startValueLabel.setText(this.startValue);
-                endValueLabel.setText(this.endValue);
-                this.getChildren().addAll(startValueLabel, endValueLabel);
+                if (!startValueLabel.getText().isEmpty()) {
+                    double start = Double.parseDouble(startValueTextField.getText());
+                    if (start >= 0 && start <= 24) {
+                        this.getChildren().clear();
+                        this.startValue = startValueTextField.getText();
+                        startValueLabel.setText(this.startValue);
+                        this.getChildren().addAll(startValueLabel, endValueLabel);
+                    }
+                }
+                if (!endValueTextField.getText().isEmpty()) {
+                    double end = Double.parseDouble(endValueTextField.getText());
+                    if (end >= 0 && end <= 24) {
+                        this.getChildren().clear();
+                        this.endValue = endValueTextField.getText();
+                        endValueLabel.setText(this.endValue);
+                        this.getChildren().addAll(startValueLabel, endValueLabel);
+                    }
+                }
             }
         });
 
