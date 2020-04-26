@@ -146,7 +146,7 @@ public class Controller {
             this.mondayContainer.getChildren().add(addMondayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Monday").clear();
             for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Monday").add((Interval)h.getChildren().get(0));
+                this.currentActivePerson.getTimeTable().get("Monday").add((Interval) h.getChildren().get(0));
             }
         });
         this.tuesdayContainer.getChildren().add(addTuesdayIntervalButton);
@@ -155,7 +155,7 @@ public class Controller {
             this.tuesdayContainer.getChildren().add(addTuesdayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Tuesday").clear();
             for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Tuesday").add((Interval)h.getChildren().get(0));
+                this.currentActivePerson.getTimeTable().get("Tuesday").add((Interval) h.getChildren().get(0));
             }
         });
         this.wednesdayContainer.getChildren().add(addWednesdayIntervalButton);
@@ -164,7 +164,7 @@ public class Controller {
             this.wednesdayContainer.getChildren().add(addWednesdayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Wednesday").clear();
             for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Wednesday").add((Interval)h.getChildren().get(0));
+                this.currentActivePerson.getTimeTable().get("Wednesday").add((Interval) h.getChildren().get(0));
             }
         });
         this.thursdayContainer.getChildren().add(addThursdayIntervalButton);
@@ -173,7 +173,7 @@ public class Controller {
             this.thursdayContainer.getChildren().add(addThursdayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Thursday").clear();
             for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Thursday").add((Interval)h.getChildren().get(0));
+                this.currentActivePerson.getTimeTable().get("Thursday").add((Interval) h.getChildren().get(0));
             }
         });
         this.fridayContainer.getChildren().add(addFridayIntervalButton);
@@ -182,7 +182,7 @@ public class Controller {
             this.fridayContainer.getChildren().add(addFridayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Friday").clear();
             for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Friday").add((Interval)h.getChildren().get(0));
+                this.currentActivePerson.getTimeTable().get("Friday").add((Interval) h.getChildren().get(0));
             }
         });
     }
@@ -241,7 +241,8 @@ public class Controller {
         this.fridayIntervals.setAll(person.getTimeTable().get("Friday"));
 
 
-        this.nameLabelPersonScene.setText("Name: " + person.getName());;
+        this.nameLabelPersonScene.setText("Name: " + person.getName());
+        ;
         this.nameLabelPersonScene.setOnMouseClicked(e -> {
             String newName = this.getName();
             if (newName != null && !newName.isEmpty()) {
@@ -271,7 +272,13 @@ public class Controller {
             HBox box = new HBox();
             VBox vBox = new VBox();
             Button deleteButton = this.createDeleteButton(council);
-            Button optionsButton = new Button("O");
+            deleteButton.setMaxSize(50, 25);
+            deleteButton.setMinSize(50, 25);
+            deleteButton.setStyle("-fx-font-size: 11");
+            Button optionsButton = new Button("Edit");
+            optionsButton.setMaxSize(50, 25);
+            optionsButton.setMinSize(50, 25);
+            optionsButton.setStyle("-fx-font-size: 11");
             optionsButton.setOnMouseClicked(e -> this.changeScene(council));
             vBox.getChildren().addAll(optionsButton, deleteButton);
             box.getChildren().addAll(council, vBox);
@@ -316,7 +323,10 @@ public class Controller {
 
     // Helper function for creating a button that return a button to open a persons (teacher / authority) properties
     private Button createOptionsButton(Authority person) {
-        Button optionsButton = new Button("O");
+        Button optionsButton = new Button("Edit");
+        optionsButton.setMaxSize(50, 25);
+        optionsButton.setMinSize(50, 25);
+        optionsButton.setStyle("-fx-font-size: 11");
         optionsButton.setOnMouseClicked(e -> {
             this.changeScene(person);
         });
@@ -325,7 +335,10 @@ public class Controller {
 
     // Helper function for creating a button that deletes a node from it's parent
     private Button createDeleteButton(Node node) {
-        Button deleteButton = new Button("D");
+        Button deleteButton = new Button("Delete");
+        deleteButton.setMaxSize(50, 25);
+        deleteButton.setMinSize(50, 25);
+        deleteButton.setStyle("-fx-font-size: 11");
         deleteButton.setOnMouseClicked(e -> {
             if (node instanceof Teacher) {
                 this.teachersList.remove(node.getParent());
