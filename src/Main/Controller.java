@@ -283,7 +283,6 @@ public class Controller {
             vBox.getChildren().addAll(optionsButton, deleteButton);
             box.getChildren().addAll(council, vBox);
             this.councilList.add(box);
-            System.out.println("Adding Council");
         }
     }
 
@@ -294,7 +293,6 @@ public class Controller {
             final Teacher teacher = new Teacher(name);
             HBox box = this.createPersonBox(teacher, this.councilTeacherContainer);
             this.teachersList.add(box);
-            System.out.println("Adding Teacher");
         }
     }
 
@@ -305,7 +303,6 @@ public class Controller {
             final Authority authority = new Authority(name);
             HBox box = this.createPersonBox(authority, this.councilAuthorityContainer);
             this.authorityList.add(box);
-            System.out.println("Adding Authority");
         }
     }
 
