@@ -56,6 +56,12 @@ public class Interval extends HBox {
 
     }
 
+    public Interval(double start, double end) {
+        this();
+        this.startValue = String.valueOf(start);
+        this.endValue = String.valueOf(end);
+    }
+
     public String getStartValue() {
         return this.startValue;
     }

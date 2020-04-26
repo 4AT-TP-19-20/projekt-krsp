@@ -385,10 +385,10 @@ public class Controller {
     }
 
     private Interval overlaps(Interval i, Interval j) {
-        if (Math.min(i.getEndValue(), j.getEndValue()) <= Math.max(i.getStartValue(), j.getStartValue())) {
+        if (Math.min(Integer.parseInt(i.getEndValue()), Integer.parseInt(j.getEndValue())) <= Math.max(Integer.parseInt(i.getStartValue()), Integer.parseInt(j.getStartValue()))) {
             return null;
         } else {
-            return new Intervall(Math.max(i.getStartValue(), j.getStartValue()), Math.min(i.getEndValue(), j.getEndValue()));
+            return new Interval(Math.max(Integer.parseInt(i.getStartValue()), Integer.parseInt(j.getStartValue())), Math.min(Integer.parseInt(i.getEndValue()), Integer.parseInt(j.getEndValue())));
         }
     }
 
