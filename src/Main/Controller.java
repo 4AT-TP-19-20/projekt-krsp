@@ -30,7 +30,6 @@ import java.util.HashMap;
 
 /*
 ToDo:
-    - Name change feature
     - Delete buttons for intervals
     - Delete button for teachers and authority in council view
     - Duration menu
@@ -603,6 +602,7 @@ public class Controller {
         return null;
     }
 
+    // Helper function to check, where and how long two Intervals overlap
     private Interval overlaps(Interval i, Interval j) {
         if (Math.min(Double.parseDouble(i.getEndValue()), Double.parseDouble(j.getEndValue())) <= Math.max(Double.parseDouble(i.getStartValue()), Double.parseDouble(j.getStartValue()))) {
             return null;
@@ -610,7 +610,6 @@ public class Controller {
             return new Interval(Math.max(Double.parseDouble(i.getStartValue()), Double.parseDouble(j.getStartValue())), Math.min(Double.parseDouble(i.getEndValue()), Double.parseDouble(j.getEndValue())));
         }
     }
-
 
     @FXML
     public void backButtonPressed() {
