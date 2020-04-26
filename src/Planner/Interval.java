@@ -57,7 +57,7 @@ public class Interval extends HBox {
                 }
                 if (!endValueTextField.getText().isEmpty()) {
                     double end = Double.parseDouble(endValueTextField.getText());
-                    double start = (startValueLabel.getText().isEmpty() ? end : Double.parseDouble(startValueTextField.getText()));
+                    double start = (startValueTextField.getText().isEmpty() ? end : Double.parseDouble(startValueTextField.getText()));
                     if (end >= 0 && end <= 24 && end >= start) {
                         this.getChildren().clear();
                         this.endValue = endValueTextField.getText();
