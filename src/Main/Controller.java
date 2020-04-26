@@ -4,6 +4,8 @@ import Planner.Authority;
 import Planner.Council;
 import Planner.Interval;
 import Planner.Teacher;
+import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -20,6 +22,9 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -389,18 +394,21 @@ public class Controller {
         // Split the intervals
         for (int i = 0; i < list.size(); i++) {
             HashMap<Council, ArrayList<HashMap<String, Interval>>> l = list.get(i);
-            Council council = new ArrayList<>(l.keySet()).get(i);
+            Council council = new ArrayList<>(l.keySet()).get(0);
             ArrayList<HashMap<String, Interval>> intervals = l.get(council);
             ArrayList<HashMap<String, Interval>> newIntervals = new ArrayList<>();
             for (int j = 0; j < intervals.size(); j++) {
                 HashMap<String, Interval> day = intervals.get(j);
-                String dayString = new ArrayList<>(day.keySet()).get(j);
+                String dayString = new ArrayList<>(day.keySet()).get(0);
                 Interval interval = day.get(dayString);
-                double len = Double.parseDouble(interval.getEndValue()) - Double.parseDouble(interval.getStartValue());
+                double start = Double.parseDouble(interval.getStartValue());
+                double end = Double.parseDouble(interval.getEndValue());
+                double duration = council.getDuration();
+                double len = (end - start) * duration;
                 while (len >= council.getDuration()) {
                     // create a new part interval with council.getDuration() as len
                     Interval newInterval = new Interval(Double.parseDouble(interval.getStartValue()), Double.parseDouble(interval.getStartValue()) + council.getDuration());
-                    interval = new Interval(Double.parseDouble(interval.getStartValue()) + council.getDuration(), Double.parseDouble(interval.getEndValue()));
+                    interval = new Interval(Double.parseDouble(interval.getStartValue()) + council.getDuration(), Double.parseDouble(interval.getEndValue()) % 60);
                     HashMap<String, Interval> entry = new HashMap<>();
                     entry.put(dayString, newInterval);
                     newIntervals.add(entry);
@@ -411,8 +419,147 @@ public class Controller {
         }
 
         // Create the schedule
-        ArrayList<HashMap<Council, Interval>> schedule = new ArrayList<>();
+        ArrayList<HashMap<Council, HashMap<String,Interval>>> schedule = new ArrayList<>();
 
+        for (int i = list.size() - 1; i >= 0; i--) {
+            HashMap<Council, ArrayList<HashMap<String, Interval>>> map = list.get(i);
+            Council council = new ArrayList<>(map.keySet()).get(0);
+            ArrayList<HashMap<String, Interval>> intervalList = map.get(council);
+            HashMap<String, Interval> intervalHashMap = intervalList.get(0);
+            String day = new ArrayList<>(intervalHashMap.keySet()).get(0);
+            Interval checkInterval = intervalHashMap.get(day);
+            if (intervalList.size() == 1) {
+                for (int j = 0; j < schedule.size(); j++) {
+                    HashMap<Council, HashMap<String, Interval>> m = schedule.get(j);
+                    Council c = new ArrayList<>(m.keySet()).get(0);
+                    if (c != council) {
+                        HashMap<String, Interval> intervalMap = m.get(c);
+                        String intervalDay = new ArrayList<>(intervalMap.keySet()).get(0);
+                        Interval in = intervalMap.get(intervalDay);
+                        if (intervalDay.equals(day)) {
+                            Interval overlap = this.overlaps(in, checkInterval);
+                            if (overlap != null) {
+                                for (Authority t : council.getTeachers()) {
+                                    for (Authority tCheck : c.getTeachers()) {
+                                        if (t.getName().equals(tCheck.getName()) && t.getTimeTable().equals(tCheck.getTimeTable())) {
+                                            // Error
+                                            return;
+                                        }
+                                    }
+                                }
+                                for (Authority t : council.getAuthorities()) {
+                                    for (Authority tCheck : c.getAuthorities()) {
+                                        if (t.getName().equals(tCheck.getName()) && t.getTimeTable().equals(tCheck.getTimeTable())) {
+                                            // Error
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                // add to schedule and remove from list
+                HashMap<String, Interval> intervalEntry = new HashMap<>();
+                HashMap<Council, HashMap<String, Interval>> entry = new HashMap<>();
+                intervalEntry.put(day, checkInterval);
+                entry.put(council, intervalEntry);
+                schedule.add(entry);
+                list.remove(map);
+            }
+        }
+
+        // Start backtracking...
+        HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = this.backTrack(list, schedule);
+        if (returnValue == null) {
+            // Error
+        } else {
+            // Export as CSV
+            ArrayList<HashMap<Council, HashMap<String, Interval>>> finishedSchedule = returnValue.get(new ArrayList<>(returnValue.keySet()).get(0));
+            try {
+                FileWriter csvWriter = new FileWriter("save.csv");
+                for (HashMap<Council, HashMap<String, Interval>> m : finishedSchedule) {
+                    Council c = new ArrayList<>(m.keySet()).get(0);
+                    HashMap<String, Interval> map = m.get(c);
+                    String day = new ArrayList<>(map.keySet()).get(0);
+                    Interval i = map.get(day);
+                    csvWriter.append(c.getName()).append(";").append(day).append(";").append(i.getStartValue()).append(";").append(i.getEndValue()).append("\n");
+                }
+                csvWriter.close();
+            } catch (IOException e) {
+                // Error
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> backTrack(ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>> list, ArrayList<HashMap<Council, HashMap<String,Interval>>> schedule) {
+        if (list.size() == 0) {
+            // Success
+            HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = new HashMap<>();
+            returnValue.put(list, schedule);
+            return returnValue;
+        } else {
+            for (int i = 0; i < list.size(); i++) {
+                HashMap<Council, ArrayList<HashMap<String, Interval>>> map = list.get(i);
+                Council council = new ArrayList<>(map.keySet()).get(0);
+                ArrayList<HashMap<String, Interval>> intervalList = map.get(council);
+                for (int j = 0; j < intervalList.size(); j++) {
+                    HashMap<String, Interval> intervalMap = intervalList.get(j);
+                    String day = new ArrayList<>(intervalMap.keySet()).get(0);
+                    Interval interval = intervalMap.get(day);
+
+                    // Check if allowed
+                    for (int k = 0; k < schedule.size(); k++) {
+                        HashMap<Council, HashMap<String,Interval>> scheduleMap = schedule.get(k);
+                        Council scheduleCouncil = new ArrayList<>(scheduleMap.keySet()).get(0);
+                        HashMap<String, Interval> scheduleIntervalPair = scheduleMap.get(scheduleCouncil);
+                        String scheduleDay = new ArrayList<>(scheduleIntervalPair.keySet()).get(0);
+                        Interval scheduleInterval = scheduleIntervalPair.get(scheduleDay);
+                        if (scheduleDay.equals(day)) {
+                            Interval overlap = this.overlaps(scheduleInterval, interval);
+                            if (overlap != null) {
+                                // ToDo: Check teachers
+                                for (Authority t : council.getTeachers()) {
+                                    for (Authority tCheck : scheduleCouncil.getTeachers()) {
+                                        if (t.getName().equals(tCheck.getName()) && t.getTimeTable().equals(tCheck.getTimeTable())) {
+                                            return null;
+                                        }
+                                    }
+                                }
+                                for (Authority t : council.getAuthorities()) {
+                                    for (Authority tCheck : scheduleCouncil.getAuthorities()) {
+                                        if (t.getName().equals(tCheck.getName()) && t.getTimeTable().equals(tCheck.getTimeTable())) {
+                                            return null;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    // Add to schedule
+                    HashMap<String, Interval> intervalEntry = new HashMap<>();
+                    HashMap<Council, HashMap<String, Interval>> entry = new HashMap<>();
+                    intervalEntry.put(day, interval);
+                    entry.put(council, intervalEntry);
+                    schedule.add(entry);
+
+                    // Remove from list
+                    list.remove(map);
+
+                    // Recursive call
+                    HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = this.backTrack(list, schedule);
+                    if (returnValue == null) {
+                        list.add(map);
+                        schedule.remove(entry);
+                    } else {
+                        return returnValue;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     private Interval overlaps(Interval i, Interval j) {
