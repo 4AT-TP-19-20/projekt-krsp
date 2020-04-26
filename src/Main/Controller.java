@@ -4,6 +4,7 @@ import Planner.Authority;
 import Planner.Council;
 import Planner.Interval;
 import Planner.Teacher;
+import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -24,10 +25,8 @@ import javafx.scene.shape.Rectangle;
 import org.omg.CORBA.INTERNAL;
 
 import javax.xml.ws.http.HTTPBinding;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public class Controller {
     @FXML
@@ -340,34 +339,40 @@ public class Controller {
     private void calculate() {
         // Create a list with all councils and their overlapping intervals
 
-        HashMap<Council, HashMap<String, ArrayList<Interval>>> list = new HashMap<>();
+        ArrayList<HashMap<Council, Map<String, ArrayList<Interval>>>> list = new ArrayList<>();
         for (HBox b : this.councilList) {
             Council council = (Council) b.getChildren().get(0);
             ArrayList<Authority> persons = council.getAuthorities();
             persons.addAll(council.getTeachers());
-            HashMap<String, Interval> intervals = null;
+            ArrayList<HashMap<String, Interval>> intervals = null;
             for (Authority a : persons) {
                 HashMap<String, ArrayList<Interval>> l = a.getTimeTable();
                 if (intervals == null) {
-                    intervals = new HashMap<>();
+                    intervals = new ArrayList<>();
                     for (int i = 0; i < l.size(); i++) {
                         String key = new ArrayList<>(l.keySet()).get(i);
                         for (Interval in : l.get(key)) {
-                            intervals.put(key, in);
+                            HashMap<String, Interval> entry = new HashMap<>();
+                            entry.put(key, in);
+                            intervals.add(entry);
                         }
                     }
                 } else {
-                    HashMap<String, Interval> newList = new HashMap<>();
+                    ArrayList<HashMap<String, Interval>> newList = new ArrayList<>();
                     for (int i = 0; i < l.size(); i++) {
                         String key = new ArrayList<>(l.keySet()).get(i);
                         for (Interval in : l.get(key)) {
                             // Check if overlaps
-                            for (int j = 0; j < intervals.size(); j++) {
-                                String day = new ArrayList<>(intervals.keySet()).get(j);
+                            for (HashMap<String, Interval> interval : intervals) {
+                                String day = new ArrayList<>(interval.keySet()).get(0);
                                 if (day.equals(key)) {
-                                    Interval overlap = this.overlaps(in, intervals.get(day));
-                                    if (overlap != null) {
-                                        newList.put(day, overlap);
+                                    if (in != null && interval.get(day) != null) {
+                                        Interval overlap = this.overlaps(in, interval.get(day));
+                                        if (overlap != null) {
+                                            HashMap<String, Interval> entry = new HashMap<>();
+                                            entry.put(day, overlap);
+                                            newList.add(entry);
+                                        }
                                     }
                                 }
                             }
@@ -380,15 +385,16 @@ public class Controller {
                     }
                 }
             }
+            System.out.println("lul");
         }
 
     }
 
     private Interval overlaps(Interval i, Interval j) {
-        if (Math.min(Integer.parseInt(i.getEndValue()), Integer.parseInt(j.getEndValue())) <= Math.max(Integer.parseInt(i.getStartValue()), Integer.parseInt(j.getStartValue()))) {
+        if (Math.min(Double.parseDouble(i.getEndValue()), Double.parseDouble(j.getEndValue())) <= Math.max(Double.parseDouble(i.getStartValue()), Double.parseDouble(j.getStartValue()))) {
             return null;
         } else {
-            return new Interval(Math.max(Integer.parseInt(i.getStartValue()), Integer.parseInt(j.getStartValue())), Math.min(Integer.parseInt(i.getEndValue()), Integer.parseInt(j.getEndValue())));
+            return new Interval(Math.max(Double.parseDouble(i.getStartValue()), Double.parseDouble(j.getStartValue())), Math.min(Double.parseDouble(i.getEndValue()), Double.parseDouble(j.getEndValue())));
         }
     }
 
