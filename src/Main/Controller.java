@@ -370,7 +370,7 @@ public class Controller {
                                 if (day.equals(key)) {
                                     if (in != null && interval.get(day) != null) {
                                         Interval overlap = this.overlaps(in, interval.get(day));
-                                        if (overlap != null && Double.parseDouble(overlap.getEndValue()) - Double.parseDouble(overlap.getStartValue()) >= council.getDuration()) {
+                                        if (overlap != null && Double.parseDouble(overlap.getEndValue()) - Double.parseDouble(overlap.getStartValue()) >= (double)council.getDuration() / 60) {
                                             HashMap<String, Interval> entry = new HashMap<>();
                                             entry.put(day, overlap);
                                             newList.add(entry);
@@ -406,16 +406,16 @@ public class Controller {
                 Interval interval = day.get(dayString);
                 double start = Double.parseDouble(interval.getStartValue());
                 double end = Double.parseDouble(interval.getEndValue());
-                double duration = council.getDuration();
+                double duration = (double)council.getDuration() / 60;
                 double len = (end - start) * duration;
-                while (len >= council.getDuration()) {
-                    // create a new part interval with council.getDuration() as len
-                    Interval newInterval = new Interval(Double.parseDouble(interval.getStartValue()), Double.parseDouble(interval.getStartValue()) + council.getDuration());
-                    interval = new Interval(Double.parseDouble(interval.getStartValue()) + council.getDuration(), Double.parseDouble(interval.getEndValue()) % 60);
+                while (len >= ((double)council.getDuration() / 60)) {
+                    // create a new part interval with (council.getDuration() / 60) as len
+                    Interval newInterval = new Interval(Double.parseDouble(interval.getStartValue()), Double.parseDouble(interval.getStartValue()) + ((double)council.getDuration() / 60));
+                    interval = new Interval(Double.parseDouble(interval.getStartValue()) + ((double)council.getDuration() / 60), Double.parseDouble(interval.getEndValue()));
                     HashMap<String, Interval> entry = new HashMap<>();
                     entry.put(dayString, newInterval);
                     newIntervals.add(entry);
-                    len -= council.getDuration();
+                    len -= (double)council.getDuration() / 60;
                 }
             }
             l.put(council, newIntervals);
