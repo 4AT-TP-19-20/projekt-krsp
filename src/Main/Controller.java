@@ -4,14 +4,12 @@ import Planner.Authority;
 import Planner.Council;
 import Planner.Interval;
 import Planner.Teacher;
-import javafx.beans.property.DoubleProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
@@ -21,12 +19,11 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
-import org.omg.CORBA.INTERNAL;
 
-import javax.xml.ws.http.HTTPBinding;
 import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 public class Controller {
     @FXML
@@ -237,7 +234,8 @@ public class Controller {
     private void addTeacher() {
         String name = this.getName();
         if (name != null && !name.isEmpty()) {
-            final Teacher teacher = new Teacher(name);;
+            final Teacher teacher = new Teacher(name);
+            ;
             HBox box = this.createPersonBox(teacher, this.councilTeacherContainer);
             this.teachersList.add(box);
             System.out.println("Adding Teacher");
@@ -338,7 +336,6 @@ public class Controller {
     @FXML
     private void calculate() {
         // Create a list with all councils and their overlapping intervals
-
         ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>> list = new ArrayList<>();
         for (HBox b : this.councilList) {
             Council council = (Council) b.getChildren().get(0);
@@ -367,7 +364,7 @@ public class Controller {
                                 if (day.equals(key)) {
                                     if (in != null && interval.get(day) != null) {
                                         Interval overlap = this.overlaps(in, interval.get(day));
-                                        if (overlap != null) {
+                                        if (overlap != null && Double.parseDouble(overlap.getEndValue()) - Double.parseDouble(overlap.getStartValue()) >= council.getDuration()) {
                                             HashMap<String, Interval> entry = new HashMap<>();
                                             entry.put(day, overlap);
                                             newList.add(entry);
@@ -389,8 +386,32 @@ public class Controller {
             list.add(entry);
         }
 
+        // Split the intervals
+        for (int i = 0; i < list.size(); i++) {
+            HashMap<Council, ArrayList<HashMap<String, Interval>>> l = list.get(i);
+            Council council = new ArrayList<>(l.keySet()).get(i);
+            ArrayList<HashMap<String, Interval>> intervals = l.get(council);
+            ArrayList<HashMap<String, Interval>> newIntervals = new ArrayList<>();
+            for (int j = 0; j < intervals.size(); j++) {
+                HashMap<String, Interval> day = intervals.get(j);
+                String dayString = new ArrayList<>(day.keySet()).get(j);
+                Interval interval = day.get(dayString);
+                double len = Double.parseDouble(interval.getEndValue()) - Double.parseDouble(interval.getStartValue());
+                while (len >= council.getDuration()) {
+                    // create a new part interval with council.getDuration() as len
+                    Interval newInterval = new Interval(Double.parseDouble(interval.getStartValue()), Double.parseDouble(interval.getStartValue()) + council.getDuration());
+                    interval = new Interval(Double.parseDouble(interval.getStartValue()) + council.getDuration(), Double.parseDouble(interval.getEndValue()));
+                    HashMap<String, Interval> entry = new HashMap<>();
+                    entry.put(dayString, newInterval);
+                    newIntervals.add(entry);
+                    len -= council.getDuration();
+                }
+            }
+            l.put(council, newIntervals);
+        }
 
-
+        // Create the schedule
+        ArrayList<HashMap<Council, Interval>> schedule = new ArrayList<>();
 
     }
 
