@@ -4,8 +4,6 @@ import Planner.Authority;
 import Planner.Council;
 import Planner.Interval;
 import Planner.Teacher;
-import com.sun.org.apache.bcel.internal.generic.ARRAYLENGTH;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -23,10 +21,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -226,9 +222,7 @@ public class Controller {
             VBox vBox = new VBox();
             Button deleteButton = this.createDeleteButton(council);
             Button optionsButton = new Button("O");
-            optionsButton.setOnMouseClicked(e -> {
-                this.changeScene(council);
-            });
+            optionsButton.setOnMouseClicked(e -> this.changeScene(council));
             vBox.getChildren().addAll(optionsButton, deleteButton);
             box.getChildren().addAll(council, vBox);
             this.councilList.add(box);
@@ -241,7 +235,6 @@ public class Controller {
         String name = this.getName();
         if (name != null && !name.isEmpty()) {
             final Teacher teacher = new Teacher(name);
-            ;
             HBox box = this.createPersonBox(teacher, this.councilTeacherContainer);
             this.teachersList.add(box);
             System.out.println("Adding Teacher");
@@ -345,7 +338,8 @@ public class Controller {
         ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>> list = new ArrayList<>();
         for (HBox b : this.councilList) {
             Council council = (Council) b.getChildren().get(0);
-            ArrayList<Authority> persons = council.getAuthorities();
+            ArrayList<Authority> persons = new ArrayList<>();
+            persons.addAll(council.getAuthorities());
             persons.addAll(council.getTeachers());
             ArrayList<HashMap<String, Interval>> intervals = null;
             for (Authority a : persons) {
@@ -370,7 +364,7 @@ public class Controller {
                                 if (day.equals(key)) {
                                     if (in != null && interval.get(day) != null) {
                                         Interval overlap = this.overlaps(in, interval.get(day));
-                                        if (overlap != null && Double.parseDouble(overlap.getEndValue()) - Double.parseDouble(overlap.getStartValue()) >= (double)council.getDuration() / 60) {
+                                        if (overlap != null && Double.parseDouble(overlap.getEndValue()) - Double.parseDouble(overlap.getStartValue()) >= (double) council.getDuration() / 60) {
                                             HashMap<String, Interval> entry = new HashMap<>();
                                             entry.put(day, overlap);
                                             newList.add(entry);
@@ -406,23 +400,23 @@ public class Controller {
                 Interval interval = day.get(dayString);
                 double start = Double.parseDouble(interval.getStartValue());
                 double end = Double.parseDouble(interval.getEndValue());
-                double duration = (double)council.getDuration() / 60;
+                double duration = (double) council.getDuration() / 60;
                 double len = (end - start) * duration;
-                while (len >= ((double)council.getDuration() / 60)) {
+                while (len >= ((double) council.getDuration() / 60)) {
                     // create a new part interval with (council.getDuration() / 60) as len
-                    Interval newInterval = new Interval(Double.parseDouble(interval.getStartValue()), Double.parseDouble(interval.getStartValue()) + ((double)council.getDuration() / 60));
-                    interval = new Interval(Double.parseDouble(interval.getStartValue()) + ((double)council.getDuration() / 60), Double.parseDouble(interval.getEndValue()));
+                    Interval newInterval = new Interval(Double.parseDouble(interval.getStartValue()), Double.parseDouble(interval.getStartValue()) + ((double) council.getDuration() / 60));
+                    interval = new Interval(Double.parseDouble(interval.getStartValue()) + ((double) council.getDuration() / 60), Double.parseDouble(interval.getEndValue()));
                     HashMap<String, Interval> entry = new HashMap<>();
                     entry.put(dayString, newInterval);
                     newIntervals.add(entry);
-                    len -= (double)council.getDuration() / 60;
+                    len -= (double) council.getDuration() / 60;
                 }
             }
             l.put(council, newIntervals);
         }
 
         // Create the schedule
-        ArrayList<HashMap<Council, HashMap<String,Interval>>> schedule = new ArrayList<>();
+        ArrayList<HashMap<Council, HashMap<String, Interval>>> schedule = new ArrayList<>();
 
         for (int i = list.size() - 1; i >= 0; i--) {
             HashMap<Council, ArrayList<HashMap<String, Interval>>> map = list.get(i);
@@ -432,8 +426,7 @@ public class Controller {
             String day = new ArrayList<>(intervalHashMap.keySet()).get(0);
             Interval checkInterval = intervalHashMap.get(day);
             if (intervalList.size() == 1) {
-                for (int j = 0; j < schedule.size(); j++) {
-                    HashMap<Council, HashMap<String, Interval>> m = schedule.get(j);
+                for (HashMap<Council, HashMap<String, Interval>> m : schedule) {
                     Council c = new ArrayList<>(m.keySet()).get(0);
                     if (c != council) {
                         HashMap<String, Interval> intervalMap = m.get(c);
@@ -482,7 +475,8 @@ public class Controller {
 
         // Start backtracking...
         HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = this.backTrack(list, schedule);
-        if (returnValue == null) {Alert alert = new Alert(Alert.AlertType.ERROR);
+        if (returnValue == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setHeaderText("Could not calculate");
             alert.setContentText("Error 3: There was no solution for this constellation of councils");
@@ -511,7 +505,7 @@ public class Controller {
     }
 
     // Backtracking function to get a schedule
-    private HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> backTrack(ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>> list, ArrayList<HashMap<Council, HashMap<String,Interval>>> schedule) {
+    private HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> backTrack(ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>> list, ArrayList<HashMap<Council, HashMap<String, Interval>>> schedule) {
         if (list.size() == 0) {
             // If no councils are left, then it succeeded
             HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = new HashMap<>();
