@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
@@ -24,6 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javax.xml.ws.http.HTTPBinding;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 
 public class Controller {
@@ -334,8 +336,61 @@ public class Controller {
 
     // Function for starting the calculation process
     @FXML
-    private void calculate(MouseEvent mouseEvent) {
+    private void calculate() {
+        // Create a list with all councils and their overlapping intervals
+        HashMap<Council, ArrayList<Interval>> list = new HashMap<>();
+        for (HBox h : this.councilList) {
+            ArrayList<Interval> checker = new ArrayList<>();
+            Council c = (Council)h.getChildren().get(0);
+            ArrayList<Authority> persons = new ArrayList<>();
+            persons.addAll(c.getTeachers());
+            persons.addAll(c.getAuthorities());
+            for (int i = 0; i < persons.size(); i++) {
+                Authority t = persons.get(i);
+                for (String s : t.getTimeTable().keySet()) {
+                    if (i == 0) {
+                        checker.addAll(t.getTimeTable().get(s));
+                    } else {
+                        for (Interval in : t.getTimeTable().get(s)) {
+                            for (int j = checker.size() - 1; j >= 0; j--) {
+                                Interval ch = checker.get(j);
+                                Interval overlap = this.overlaps(in, ch);
+                                if (overlap == null) {
+                                    checker.remove(ch);
+                                } else {
+                                    checker.set(j, overlap);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if (checker.size() > 0) {
+                list.put(c, checker);
+            } else {
+                // Error
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Could not calculate a timetable");
+                alert.setContentText("Council " + c.getName() + " has no time-interval where all members have time");
+                alert.showAndWait();
+                return;
+            }
+        }
+
+        System.out.println("Success");
+
+
     }
+
+    private Interval overlaps(Interval i, Interval j) {
+        if (Math.min(i.getEndValue(), j.getEndValue()) <= Math.max(i.getStartValue(), j.getStartValue())) {
+            return null;
+        } else {
+            return new Intervall(Math.max(i.getStartValue(), j.getStartValue()), Math.min(i.getEndValue(), j.getEndValue()));
+        }
+    }
+
 
     @FXML
     public void backButtonPressed() {
