@@ -339,7 +339,7 @@ public class Controller {
     private void calculate() {
         // Create a list with all councils and their overlapping intervals
 
-        ArrayList<HashMap<Council, Map<String, ArrayList<Interval>>>> list = new ArrayList<>();
+        ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>> list = new ArrayList<>();
         for (HBox b : this.councilList) {
             Council council = (Council) b.getChildren().get(0);
             ArrayList<Authority> persons = council.getAuthorities();
@@ -362,7 +362,6 @@ public class Controller {
                     for (int i = 0; i < l.size(); i++) {
                         String key = new ArrayList<>(l.keySet()).get(i);
                         for (Interval in : l.get(key)) {
-                            // Check if overlaps
                             for (HashMap<String, Interval> interval : intervals) {
                                 String day = new ArrayList<>(interval.keySet()).get(0);
                                 if (day.equals(key)) {
@@ -385,8 +384,13 @@ public class Controller {
                     }
                 }
             }
-            System.out.println("lul");
+            HashMap<Council, ArrayList<HashMap<String, Interval>>> entry = new HashMap<>();
+            entry.put(council, intervals);
+            list.add(entry);
         }
+
+
+
 
     }
 
