@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -32,9 +33,14 @@ ToDo:
     - Name display when scene changes
     - Name change feature
     - Delete buttons for intervals
+    - Delete button for teachers and authority in council view
  */
 
 public class Controller {
+    @FXML
+    private Label nameLabelPersonScene;
+    @FXML
+    private Label nameLabelCouncilScene;
     @FXML
     private Button backButton;
     @FXML
@@ -186,6 +192,8 @@ public class Controller {
         this.councilAuthorityContainer.getChildren().setAll(council.getAuthorities());
         this.currentActiveCouncil = council;
         this.currentActivePerson = null;
+
+        this.nameLabelCouncilScene.setText("Name: " + council.getName());
     }
 
     // Helper function for changing the scene to the properties of a specific person (teacher or authority)
@@ -206,6 +214,8 @@ public class Controller {
         this.thursdayIntervals.setAll(person.getTimeTable().get("Thursday"));
         this.fridayIntervals.setAll(person.getTimeTable().get("Friday"));
 
+
+        this.nameLabelPersonScene.setText("Name: " + person.getName());;
 
     }
 

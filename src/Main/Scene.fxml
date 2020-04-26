@@ -34,7 +34,7 @@
                         </VBox>
                         <VBox fx:id="councilScene" prefHeight="550.0" prefWidth="550.0">
                             <HBox prefHeight="50.0" prefWidth="550.0">
-                                <Label prefHeight="46.0" prefWidth="72.0" text="Name:">
+                                <Label fx:id="nameLabelCouncilScene" prefHeight="46.0" prefWidth="550.0" text="Name:">
                                     <font>
                                         <Font size="22.0" />
                                     </font>
@@ -135,9 +135,9 @@
                     <opaqueInsets>
                         <Insets />
                     </opaqueInsets>
-                    <Label prefHeight="35.0" prefWidth="120.0" text="Name:">
+                    <Label fx:id="nameLabelPersonScene" prefHeight="46.0" prefWidth="800.0" text="Name:">
                         <font>
-                            <Font size="24.0" />
+                            <Font size="22.0" />
                         </font>
                         <HBox.margin>
                             <Insets />
