@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.MouseEvent;
@@ -380,7 +381,11 @@ public class Controller {
                         }
                     }
                     if (newList.size() == 0) {
-                        // Error
+                        Alert alert = new Alert(Alert.AlertType.ERROR);
+                        alert.setTitle("Error");
+                        alert.setHeaderText("Could not calculate");
+                        alert.setContentText("Error 1: Council " + council.getName() + " has no interval where all persons are available");
+                        alert.showAndWait();
                     } else {
                         intervals = newList;
                     }
@@ -392,13 +397,11 @@ public class Controller {
         }
 
         // Split the intervals
-        for (int i = 0; i < list.size(); i++) {
-            HashMap<Council, ArrayList<HashMap<String, Interval>>> l = list.get(i);
+        for (HashMap<Council, ArrayList<HashMap<String, Interval>>> l : list) {
             Council council = new ArrayList<>(l.keySet()).get(0);
             ArrayList<HashMap<String, Interval>> intervals = l.get(council);
             ArrayList<HashMap<String, Interval>> newIntervals = new ArrayList<>();
-            for (int j = 0; j < intervals.size(); j++) {
-                HashMap<String, Interval> day = intervals.get(j);
+            for (HashMap<String, Interval> day : intervals) {
                 String dayString = new ArrayList<>(day.keySet()).get(0);
                 Interval interval = day.get(dayString);
                 double start = Double.parseDouble(interval.getStartValue());
@@ -442,7 +445,11 @@ public class Controller {
                                 for (Authority t : council.getTeachers()) {
                                     for (Authority tCheck : c.getTeachers()) {
                                         if (t.getName().equals(tCheck.getName()) && t.getTimeTable().equals(tCheck.getTimeTable())) {
-                                            // Error
+                                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                                            alert.setTitle("Error");
+                                            alert.setHeaderText("Could not calculate");
+                                            alert.setContentText("Error 2: Council " + council.getName() + " cannot hold the meeting, because there is only that time interval and it is blocked by " + c.getName() + ", because they have one more more similar persons");
+                                            alert.showAndWait();
                                             return;
                                         }
                                     }
@@ -450,7 +457,11 @@ public class Controller {
                                 for (Authority t : council.getAuthorities()) {
                                     for (Authority tCheck : c.getAuthorities()) {
                                         if (t.getName().equals(tCheck.getName()) && t.getTimeTable().equals(tCheck.getTimeTable())) {
-                                            // Error
+                                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                                            alert.setTitle("Error");
+                                            alert.setHeaderText("Could not calculate");
+                                            alert.setContentText("Error 2: Council " + council.getName() + " cannot hold the meeting, because there is only that time interval and it is blocked by " + c.getName() + ", because they have one more more similar persons");
+                                            alert.showAndWait();
                                             return;
                                         }
                                     }
@@ -471,8 +482,11 @@ public class Controller {
 
         // Start backtracking...
         HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = this.backTrack(list, schedule);
-        if (returnValue == null) {
-            // Error
+        if (returnValue == null) {Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Could not calculate");
+            alert.setContentText("Error 3: There was no solution for this constellation of councils");
+            alert.showAndWait();
         } else {
             // Export as CSV
             ArrayList<HashMap<Council, HashMap<String, Interval>>> finishedSchedule = returnValue.get(new ArrayList<>(returnValue.keySet()).get(0));
@@ -487,31 +501,34 @@ public class Controller {
                 }
                 csvWriter.close();
             } catch (IOException e) {
-                // Error
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Could not save");
+                alert.setContentText("Error 4: Could not write to csv");
+                alert.showAndWait();
             }
         }
     }
 
+    // Backtracking function to get a schedule
     private HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> backTrack(ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>> list, ArrayList<HashMap<Council, HashMap<String,Interval>>> schedule) {
         if (list.size() == 0) {
-            // Success
+            // If no councils are left, then it succeeded
             HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = new HashMap<>();
             returnValue.put(list, schedule);
             return returnValue;
         } else {
+            // Loop through the list
             for (int i = 0; i < list.size(); i++) {
                 HashMap<Council, ArrayList<HashMap<String, Interval>>> map = list.get(i);
                 Council council = new ArrayList<>(map.keySet()).get(0);
                 ArrayList<HashMap<String, Interval>> intervalList = map.get(council);
-                for (int j = 0; j < intervalList.size(); j++) {
-                    HashMap<String, Interval> intervalMap = intervalList.get(j);
+                // Loop through the intervals
+                for (HashMap<String, Interval> intervalMap : intervalList) {
                     String day = new ArrayList<>(intervalMap.keySet()).get(0);
                     Interval interval = intervalMap.get(day);
-
                     // Check if allowed
-                    for (int k = 0; k < schedule.size(); k++) {
-                        HashMap<Council, HashMap<String,Interval>> scheduleMap = schedule.get(k);
+                    for (HashMap<Council, HashMap<String, Interval>> scheduleMap : schedule) {
                         Council scheduleCouncil = new ArrayList<>(scheduleMap.keySet()).get(0);
                         HashMap<String, Interval> scheduleIntervalPair = scheduleMap.get(scheduleCouncil);
                         String scheduleDay = new ArrayList<>(scheduleIntervalPair.keySet()).get(0);
@@ -519,7 +536,7 @@ public class Controller {
                         if (scheduleDay.equals(day)) {
                             Interval overlap = this.overlaps(scheduleInterval, interval);
                             if (overlap != null) {
-                                // ToDo: Check teachers
+                                // Check if teachers or authorities are duplicate
                                 for (Authority t : council.getTeachers()) {
                                     for (Authority tCheck : scheduleCouncil.getTeachers()) {
                                         if (t.getName().equals(tCheck.getName()) && t.getTimeTable().equals(tCheck.getTimeTable())) {
@@ -537,17 +554,14 @@ public class Controller {
                             }
                         }
                     }
-
                     // Add to schedule
                     HashMap<String, Interval> intervalEntry = new HashMap<>();
                     HashMap<Council, HashMap<String, Interval>> entry = new HashMap<>();
                     intervalEntry.put(day, interval);
                     entry.put(council, intervalEntry);
                     schedule.add(entry);
-
                     // Remove from list
                     list.remove(map);
-
                     // Recursive call
                     HashMap<ArrayList<HashMap<Council, ArrayList<HashMap<String, Interval>>>>, ArrayList<HashMap<Council, HashMap<String, Interval>>>> returnValue = this.backTrack(list, schedule);
                     if (returnValue == null) {
