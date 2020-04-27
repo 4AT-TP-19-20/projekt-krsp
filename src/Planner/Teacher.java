@@ -1,6 +1,5 @@
 package Planner;
 
-import Draggable.Draggable;
 import javafx.scene.Node;
 
 public class Teacher extends Authority {

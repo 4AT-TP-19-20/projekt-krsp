@@ -1,9 +1,6 @@
 package Planner;
 
 import Draggable.Draggable;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.ObservableList;
-import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -37,7 +34,6 @@ public class Authority extends Draggable {
         nameLabel.prefHeightProperty().bind(box.heightProperty());
         nameLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
         box.getChildren().add(nameLabel);
-
         this.getChildren().add(box);
     }
 
@@ -54,10 +50,6 @@ public class Authority extends Draggable {
 
     public HashMap<String, ArrayList<Interval>> getTimeTable() {
         return this.timeTable;
-    }
-
-    public void setChildren(ObservableList<Node> children) {
-        this.getChildren().setAll(children);
     }
 
     public void setTimeTable(HashMap<String, ArrayList<Interval>> timeTable) {

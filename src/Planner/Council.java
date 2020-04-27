@@ -1,6 +1,5 @@
 package Planner;
 
-import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
@@ -11,15 +10,12 @@ public class Council extends HBox {
     private double duration;
     private ArrayList<Teacher> teachers = new ArrayList<>();
     private ArrayList<Authority> authorities = new ArrayList<>();
-
     private Label nameLabel = new Label();
     private Label durationLabel = new Label();
 
     public Council(String name, double duration) {
         this.duration = duration;
         this.name = name;
-
-
         this.setPrefSize(550, 50);
         this.setMaxHeight(50);
         this.setStyle("-fx-background-color: white; -fx-border-color: black; -fx-alignment: center");
@@ -27,14 +23,11 @@ public class Council extends HBox {
         this.nameLabel.prefHeightProperty().bind(this.heightProperty());
         this.nameLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
         this.nameLabel.setText(this.name);
-
         this.durationLabel.prefWidthProperty().bind(this.widthProperty());
         this.durationLabel.prefHeightProperty().bind(this.heightProperty());
         this.durationLabel.setStyle("-fx-wrap-text: true; -fx-alignment: center; -fx-text-alignment: center");
         this.durationLabel.setText("Duration: " + duration);
-
         this.getChildren().addAll(this.nameLabel, durationLabel);
-
     }
 
     public String getName() {
