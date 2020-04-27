@@ -201,17 +201,11 @@ public class Controller {
         this.councilScene.setVisible(true);
         this.propertyScene.setVisible(false);
         this.backButton.setVisible(true);
-
-
         this.councilTeacherContainer.getChildren().setAll(council.getTeachers());
         this.councilAuthorityContainer.getChildren().setAll(council.getAuthorities());
-
-
         this.timeArea.setText(String.valueOf(council.getDuration()));
-
         this.currentActiveCouncil = council;
         this.currentActivePerson = null;
-
         this.nameLabelCouncilScene.setText("Name: " + council.getName());
         this.nameLabelCouncilScene.setOnMouseClicked(e -> {
             String newName = this.getName();
@@ -231,18 +225,13 @@ public class Controller {
         this.backButton.setVisible(true);
         this.currentActivePerson = person;
         this.currentActiveCouncil = null;
-
-
         // Bind person timetable with the observable lists
         this.mondayIntervals.setAll(person.getTimeTable().get("Monday"));
         this.tuesdayIntervals.setAll(person.getTimeTable().get("Tuesday"));
         this.wednesdayIntervals.setAll(person.getTimeTable().get("Wednesday"));
         this.thursdayIntervals.setAll(person.getTimeTable().get("Thursday"));
         this.fridayIntervals.setAll(person.getTimeTable().get("Friday"));
-
-
         this.nameLabelPersonScene.setText("Name: " + person.getName());
-        ;
         this.nameLabelPersonScene.setOnMouseClicked(e -> {
             String newName = this.getName();
             if (newName != null && !newName.isEmpty()) {
