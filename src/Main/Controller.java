@@ -4,6 +4,7 @@ import Planner.Authority;
 import Planner.Council;
 import Planner.Interval;
 import Planner.Teacher;
+import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -145,8 +146,12 @@ public class Controller {
             this.mondayContainer.getChildren().setAll(this.mondayIntervals);
             this.mondayContainer.getChildren().add(addMondayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Monday").clear();
-            for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Monday").add((Interval) h.getChildren().get(0));
+            for (HBox h : this.mondayIntervals) {
+                if (h instanceof Interval) {
+                    this.currentActivePerson.getTimeTable().get("Monday").add((Interval) h);
+                } else {
+                    this.currentActivePerson.getTimeTable().get("Monday").add((Interval) h.getChildren().get(0));
+                }
             }
         });
         this.tuesdayContainer.getChildren().add(addTuesdayIntervalButton);
@@ -154,8 +159,12 @@ public class Controller {
             this.tuesdayContainer.getChildren().setAll(tuesdayIntervals);
             this.tuesdayContainer.getChildren().add(addTuesdayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Tuesday").clear();
-            for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Tuesday").add((Interval) h.getChildren().get(0));
+            for (HBox h : this.tuesdayIntervals) {
+                if (h instanceof Interval) {
+                    this.currentActivePerson.getTimeTable().get("Tuesday").add((Interval) h);
+                } else {
+                    this.currentActivePerson.getTimeTable().get("Tuesday").add((Interval) h.getChildren().get(0));
+                }
             }
         });
         this.wednesdayContainer.getChildren().add(addWednesdayIntervalButton);
@@ -163,17 +172,25 @@ public class Controller {
             this.wednesdayContainer.getChildren().setAll(wednesdayIntervals);
             this.wednesdayContainer.getChildren().add(addWednesdayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Wednesday").clear();
-            for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Wednesday").add((Interval) h.getChildren().get(0));
+            for (HBox h : this.wednesdayIntervals) {
+                if (h instanceof Interval) {
+                    this.currentActivePerson.getTimeTable().get("Wednesday").add((Interval) h);
+                } else {
+                    this.currentActivePerson.getTimeTable().get("Wednesday").add((Interval) h.getChildren().get(0));
+                }
             }
         });
         this.thursdayContainer.getChildren().add(addThursdayIntervalButton);
-        this.thursdayIntervals.addListener((ListChangeListener<? super HBox>) e -> {
+        this.thursdayIntervals.addListener((InvalidationListener) e -> {
             this.thursdayContainer.getChildren().setAll(thursdayIntervals);
             this.thursdayContainer.getChildren().add(addThursdayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Thursday").clear();
-            for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Thursday").add((Interval) h.getChildren().get(0));
+            for (HBox h : this.thursdayIntervals) {
+                if (h instanceof Interval) {
+                    this.currentActivePerson.getTimeTable().get("Thursday").add((Interval) h);
+                } else {
+                    this.currentActivePerson.getTimeTable().get("Thursday").add((Interval) h.getChildren().get(0));
+                }
             }
         });
         this.fridayContainer.getChildren().add(addFridayIntervalButton);
@@ -182,7 +199,11 @@ public class Controller {
             this.fridayContainer.getChildren().add(addFridayIntervalButton);
             this.currentActivePerson.getTimeTable().get("Friday").clear();
             for (HBox h : this.fridayIntervals) {
-                this.currentActivePerson.getTimeTable().get("Friday").add((Interval) h.getChildren().get(0));
+                if (h instanceof Interval) {
+                    this.currentActivePerson.getTimeTable().get("Friday").add((Interval) h);
+                } else {
+                    this.currentActivePerson.getTimeTable().get("Friday").add((Interval) h.getChildren().get(0));
+                }
             }
         });
     }
