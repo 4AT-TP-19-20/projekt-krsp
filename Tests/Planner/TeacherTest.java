@@ -9,7 +9,7 @@ import java.lang.reflect.Field;
 
 class TeacherTest {
     @BeforeAll
-    static void beforeAll() {
+    static void setUp() {
         Main.main(new String[] {});
     }
 
@@ -19,8 +19,8 @@ class TeacherTest {
 
         Authority copy = (Authority) teacher.getCopyOfInstance();
 
-        for (Field teacherfield : teacher.getClass().getDeclaredFields()) {
-            Assertions.assertEquals(teacherfield.get(teacher), teacherfield.get(copy));
+        for (Field teacherField : teacher.getClass().getDeclaredFields()) {
+            Assertions.assertEquals(teacherField.get(teacher), teacherField.get(copy));
         }
     }
 }

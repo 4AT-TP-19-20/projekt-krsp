@@ -10,10 +10,9 @@ import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Field;
 
-
 class AuthorityTest {
     @BeforeAll
-    static void beforeAll() {
+    static void setUp() {
         Main.main(new String[] {});
     }
 
@@ -23,15 +22,15 @@ class AuthorityTest {
 
         Authority copy = (Authority) authority.getCopyOfInstance();
 
-        for (Field authorityfield : authority.getClass().getDeclaredFields()) {
-            if (authorityfield.get(authority) instanceof Region){
-                Region region = (Region) authorityfield.get(authority);
-                Region regioncopy = (Region) authorityfield.get(copy);
-                for (Field regionfield : region.getClass().getFields()) {
-                    Assertions.assertEquals(regionfield.get(region), regionfield.get(regioncopy));
+        for (Field authorityField : authority.getClass().getDeclaredFields()) {
+            if (authorityField.get(authority) instanceof Region){
+                Region region = (Region) authorityField.get(authority);
+                Region regionCopy = (Region) authorityField.get(copy);
+                for (Field regionField : region.getClass().getFields()) {
+                    Assertions.assertEquals(regionField.get(region), regionField.get(regionCopy));
                 }
-            }else{
-                Assertions.assertEquals(authorityfield.get(authority), authorityfield.get(copy));
+            } else {
+                Assertions.assertEquals(authorityField.get(authority), authorityField.get(copy));
             }
         }
     }

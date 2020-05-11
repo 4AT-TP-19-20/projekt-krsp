@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 public class ControllerTest {
     @BeforeAll
-    static void beforeAll() {
+    static void setUp() {
         Main.main(new String[] {});
     }
 
