@@ -40,16 +40,22 @@ class CouncilTest {
 
     @Test
     void getTeachers() {
-
+        Council council = new Council("name", 10);
+        Assertions.assertNotNull(council.getTeachers());
+        Assertions.assertEquals(0, council.getTeachers().size());
     }
 
     @Test
     void getAuthorities() {
-
+        Council council = new Council("name", 10);
+        Assertions.assertNotNull(council.getAuthorities());
+        Assertions.assertEquals(0, council.getAuthorities().size());
     }
 
     @Test
     void setName() {
-
+        Council council = new Council("oldName", 10);
+        council.setName("newName");
+        Assertions.assertEquals("newName", council.getName());
     }
 }

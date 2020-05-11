@@ -5,11 +5,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class ControllerTest {
     @BeforeAll
-    static void beforeAll() {
+    static void setUp() {
         Main.main(new String[] {});
     }
 

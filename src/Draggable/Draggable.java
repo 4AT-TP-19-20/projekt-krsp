@@ -10,13 +10,13 @@ import java.util.Arrays;
 
 public abstract class Draggable extends Region {
     private Pane rootPane = null;
-    private ArrayList<Node> possibleContainers = null;
+    private ArrayList<? extends Node> possibleContainers = null;
 
     public void makeDraggable(Pane rootPane, Node... possibleContainers) {
         this.makeDraggable(rootPane, new ArrayList<>(Arrays.asList(possibleContainers)));
     }
 
-    public void makeDraggable(Pane rootPane, ArrayList<Node> possibleContainers) {
+    public void makeDraggable(Pane rootPane, ArrayList<? extends Node> possibleContainers) {
         this.rootPane = rootPane;
         this.possibleContainers = possibleContainers;
         this.setOnMousePressed(e -> {
@@ -64,7 +64,7 @@ public abstract class Draggable extends Region {
 
     protected abstract Node getCopyOfInstance();
 
-    public ArrayList<Node> getPossibleContainers() {
+    public ArrayList<? extends Node> getPossibleContainers() {
         return this.possibleContainers;
     }
 

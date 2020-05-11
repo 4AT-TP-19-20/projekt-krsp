@@ -56,14 +56,6 @@ public class Authority extends Draggable {
         this.timeTable = timeTable;
     }
 
-    public void makeDraggable(Pane rootPane, Node... possibleContainers) {
-        super.makeDraggable(rootPane, possibleContainers);
-    }
-
-    public void makeDraggable(Pane rootPane, ArrayList<Node> possibleContainers) {
-        super.makeDraggable(rootPane, possibleContainers);
-    }
-
     public void setName(String name) {
         this.name = name;
         nameLabel.setText(this.name);
