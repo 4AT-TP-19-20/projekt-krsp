@@ -1,9 +1,7 @@
 package Planner;
 
 import Main.Main;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -33,11 +31,5 @@ class AuthorityTest {
                 Assertions.assertEquals(authorityField.get(authority), authorityField.get(copy));
             }
         }
-    }
-
-    @Test
-    void makeDraggable() {
-        Authority authority = new Authority("Authority");
-        authority.makeDraggable(new BorderPane(), new VBox());
     }
 }
