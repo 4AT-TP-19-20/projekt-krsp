@@ -610,7 +610,7 @@ public class Controller {
     }
 
     // Helper function to check, where and how long two Intervals overlap
-    private Interval overlaps(Interval i, Interval j) {
+    public Interval overlaps(Interval i, Interval j) {
         if (Math.min(Double.parseDouble(i.getEndValue()), Double.parseDouble(j.getEndValue())) <= Math.max(Double.parseDouble(i.getStartValue()), Double.parseDouble(j.getStartValue()))) {
             return null;
         } else {
