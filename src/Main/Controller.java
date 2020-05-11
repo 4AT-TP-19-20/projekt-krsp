@@ -26,11 +26,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-/*
-ToDo:
-    - Delete button for teachers and authority in council view
- */
-
 public class Controller {
     @FXML
     private TextField timeArea;
